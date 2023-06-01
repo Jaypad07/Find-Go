@@ -4,6 +4,10 @@ import com.sei.findgo.models.Product;
 import com.sei.findgo.models.Store;
 import com.sei.findgo.models.StoreSection;
 import com.sei.findgo.models.User;
+import com.sei.findgo.repository.ProductRepository;
+import com.sei.findgo.repository.StoreRepository;
+import com.sei.findgo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +15,28 @@ import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    private StoreRepository storeRepository;
+
+    @Autowired
+    public void setStoreRepository(StoreRepository storeRepository) {
+        this.storeRepository = storeRepository;
+    }
+
+    private ProductRepository productRepository;
+
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
     public void run(String... args) throws Exception {
         loadSeedData();
@@ -32,12 +58,13 @@ public class DataLoader implements CommandLineRunner {
         Target.setStoreName("Target");
         Store BestBuy = new Store();
 
+        // Creating Store isles
         StoreSection electronicsSection = new StoreSection();
-        electronicsSection.setSectionName("3B");
+        electronicsSection.setSectionName("Electronics Section");
         electronicsSection.setStore(Target);
 
         StoreSection clothingSection = new StoreSection();
-        clothingSection.setSectionName("5A");
+        clothingSection.setSectionName("Clothing Section");
         electronicsSection.setStore(Target);
 
         // Creating products
@@ -76,16 +103,16 @@ public class DataLoader implements CommandLineRunner {
         product4.setQuantity(30);
         product4.setStoreSection(clothingSection);
 
-        List<Product> targetElectronics = List.of(product1, product3);
-        List<Product> targetClothing = List.of(product2, product4);
+        //Adding a list of products to the store isles
+        List<Product> isle4 = List.of(product1, product3);
+        List<Product> isle17 = List.of(product2, product4);
 
-        electronicsSection.setProductList(targetElectronics);
-        clothingSection.setProductList(targetClothing);
+        //Adding isles of products to store sections
+        electronicsSection.setProductList(isle4);
+        clothingSection.setProductList(isle17);
 
+        //Adding a list of store sections to the store
         Target.setStoreSectionsList(List.of(electronicsSection, clothingSection));
-
-
-
 
     }
 }
