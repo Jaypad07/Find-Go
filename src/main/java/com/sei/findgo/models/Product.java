@@ -32,6 +32,17 @@ public class Product {
     @JoinColumn(name = "storeSection_id")
     private StoreSection storeSection;
 
+    public Product() {
+    }
+
+    public Product(String productName, String description, String category, int price, int quantity) {
+        this.productName = productName;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public Long getId() {
         return id;
     }

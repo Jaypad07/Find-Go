@@ -25,6 +25,9 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @Column
+    private String role;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "user_store", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name ="store_id"))
@@ -33,10 +36,11 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String email, String password) {
+    public User(String firstName, String email, String password, String role) {
         this.firstName = firstName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -79,6 +83,14 @@ public class User {
         this.storeList = storeList;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -86,6 +98,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 ", storeList=" + storeList +
                 '}';
     }

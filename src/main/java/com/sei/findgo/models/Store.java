@@ -25,6 +25,14 @@ public class Store {
     @Column
     private byte[] map;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "storeList")
+    private List<User> userList;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<StoreSection> storeSectionsList;
+
     public Store() {
     }
 
@@ -34,14 +42,6 @@ public class Store {
         this.location = location;
         this.map = map;
     }
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "storeList")
-    private List<User> userList;
-
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<StoreSection> storeSectionsList;
 
     public int getId() {
         return id;

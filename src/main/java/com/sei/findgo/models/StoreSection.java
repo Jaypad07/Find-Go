@@ -20,6 +20,19 @@ public class StoreSection {
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @OneToMany(mappedBy = "storeSection", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Product> productList;
+
+    public StoreSection() {
+    }
+
+    public StoreSection(String sectionName, Store store, List<Product> productList) {
+        this.sectionName = sectionName;
+        this.store = store;
+        this.productList = productList;
+    }
+
     public int getId() {
         return id;
     }
@@ -42,6 +55,14 @@ public class StoreSection {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @Override
