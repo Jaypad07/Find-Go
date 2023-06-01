@@ -114,5 +114,23 @@ public class DataLoader implements CommandLineRunner {
         //Adding a list of store sections to the store
         Target.setStoreSectionsList(List.of(electronicsSection, clothingSection));
 
+        //Adding stores to the database
+        storeRepository.save(Target);
+        storeRepository.save(BestBuy);
+
+        //Adding users to the database
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+        userRepository.save(user4);
+        userRepository.save(user5);
+
+        //Adding products to the database
+        productRepository.save(product1);
+        productRepository.save(product2);
+        productRepository.save(product3);
+        productRepository.save(product4);
+
+        System.out.println("Seed Data Loaded");
     }
 }
