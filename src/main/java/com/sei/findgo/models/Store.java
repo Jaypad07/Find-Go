@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Store {
     private int id;
 
     @Column
-    private String name;
+    private String storeName;
 
     @Column
     private String location;
@@ -27,9 +28,9 @@ public class Store {
     public Store() {
     }
 
-    public Store(int id, String name, String location, byte[] map) {
+    public Store(int id, String storeName, String location, byte[] map) {
         this.id = id;
-        this.name = name;
+        this.storeName = storeName;
         this.location = location;
         this.map = map;
     }
@@ -37,6 +38,10 @@ public class Store {
     @JsonIgnore
     @ManyToMany(mappedBy = "storeList")
     private List<User> userList;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<StoreSection> storeSectionsList;
 
     public int getId() {
         return id;
@@ -46,12 +51,12 @@ public class Store {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getLocation() {
@@ -76,5 +81,25 @@ public class Store {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public List<StoreSection> getStoreSectionsList() {
+        return storeSectionsList;
+    }
+
+    public void setStoreSectionsList(List<StoreSection> storeSectionsList) {
+        this.storeSectionsList = storeSectionsList;
+    }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", storeName='" + storeName + '\'' +
+                ", location='" + location + '\'' +
+                ", map=" + Arrays.toString(map) +
+                ", userList=" + userList +
+                ", storeSectionsList=" + storeSectionsList +
+                '}';
     }
 }

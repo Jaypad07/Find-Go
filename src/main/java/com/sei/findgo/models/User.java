@@ -78,4 +78,15 @@ public class User {
     public void setStoreList(List<Store> storeList) {
         this.storeList = storeList;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", storeList=" + storeList +
+                '}';
+    }
 }
