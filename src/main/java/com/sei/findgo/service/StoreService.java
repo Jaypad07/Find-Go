@@ -7,6 +7,7 @@ import com.sei.findgo.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,16 @@ public class StoreService {
         if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
             return storeRepository.save(storeObject);
         }else throw new InformationNotFoundException("You are not authorized to perform this action");
+    }
+
+    public List<Store> getAllStores() {
+        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
+        if (user.isPresent()) {
+            List<Store> storeList = storeRepository.findAll();
+            if (storeList.size() == 0) {
+                throw new InformationNotFoundException("No stores found");
+            }else return storeList;
+        }else throw new InformationNotFoundException("User not found");
     }
 
     public  Store findStoreById(int id){
@@ -48,12 +59,6 @@ public class StoreService {
         } else throw new InformationNotFoundException("The store you are looking for does not exist");
     }
 
-    public String deleteStore(int id) {
-        Store store = findStoreById(id);
-        storeRepository.delete(store);
-        return "Store deleted successfully";
-    }
-
 
     public Store updateStore(Store storeObject, int storeId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
@@ -69,5 +74,14 @@ public class StoreService {
             }else throw new InformationNotFoundException("The store you are looking for does not exist");
         }else throw new InformationNotFoundException("You are not authorized to perform this action");
     }
+
+    public String deleteStore(int id) {
+        Store store = findStoreById(id);
+        storeRepository.delete(store);
+        return "Store deleted successfully";
+    }
+
+
+
 
 }

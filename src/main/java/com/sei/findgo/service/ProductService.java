@@ -45,7 +45,7 @@ public class ProductService {
                 throw new InformationNotFoundException("No products found.");
             } else return productList;
         } else {
-            throw new InformationNotFoundException("user not found");
+            throw new InformationNotFoundException("User not found");
         }
     }
 
@@ -77,13 +77,13 @@ public class ProductService {
         } else throw new NoAuthorizationException("You are not authorized to update this product.");
     }
 
-    public Product deleteProduct(Long productId) {
+    public String deleteProduct(Long productId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
             Optional<Product> product = productRepository.findById(productId);
             if (product.isPresent()) {
                 productRepository.deleteById(productId);
-                return product.get();
+                return product.get() + " deleted successfully.";
             } else throw new ProductNotFoundException("Product with id " + productId + " not found.");
         } else throw new NoAuthorizationException("User not authorized to delete product.");
     }
