@@ -27,10 +27,9 @@ public class StoreSection {
     public StoreSection() {
     }
 
-    public StoreSection(String sectionName, Store store, List<Product> productList) {
+    public StoreSection(String sectionName, Store store) {
         this.sectionName = sectionName;
         this.store = store;
-        this.productList = productList;
     }
 
     public int getId() {

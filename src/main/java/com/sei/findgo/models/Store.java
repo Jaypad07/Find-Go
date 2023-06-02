@@ -20,6 +20,9 @@ public class Store {
     private String storeName;
 
     @Column
+    private String description;
+
+    @Column
     private String location;
 
     @Column
@@ -36,9 +39,9 @@ public class Store {
     public Store() {
     }
 
-    public Store(int id, String storeName, String location, byte[] map) {
-        this.id = id;
+    public Store(String storeName, String location, String description, byte[] map) {
         this.storeName = storeName;
+        this.description = description;
         this.location = location;
         this.map = map;
     }
@@ -69,6 +72,14 @@ public class Store {
 
     public byte[] getMap() {
         return map;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setMap(byte[] map) {

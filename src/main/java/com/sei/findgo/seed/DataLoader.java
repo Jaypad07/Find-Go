@@ -7,7 +7,6 @@ import com.sei.findgo.models.User;
 import com.sei.findgo.repository.ProductRepository;
 import com.sei.findgo.repository.StoreRepository;
 import com.sei.findgo.repository.StoreSectionRepository;
-import com.sei.findgo.repository.UserRepository;
 import com.sei.findgo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -52,6 +51,8 @@ public class DataLoader implements CommandLineRunner {
         loadSeedData();
     }
 
+    byte[] mapImage = {1, 2, 3};
+
     private void loadSeedData() {
 
         System.out.println("Calling Seed Data");
@@ -60,82 +61,82 @@ public class DataLoader implements CommandLineRunner {
         User user2 = new User("Emma", "emma@example.com", "password2" , "User");
         User user3 = new User("Michael", "michael@example.com", "password3" , "User");
         User user4 = new User("Sophia", "sophia@example.com", "password4" , "User");
-        User user5 = new User("William", "william@example.com", "password5", "User");
+        User user5 = new User("William", "william@example.com", "password5", "Admin");
 
 
+        Store Target = new Store("Target", "123 Main Street", "Department Store", mapImage);
+        Store BestBuy= new Store("Best Buy", "456 Elm Avenue", "Electronics", mapImage);
+        Store Walmart = new Store("Walmart", "789 Oak Boulevard", "Retail Store", mapImage);
+        Store HomeDepot = new Store("Home Depot", "321 Maple Lane", "Home Improvement", mapImage);
+        Store CVS = new Store("CVS", "987 Pine Road", "Health", mapImage);
 
-        Store Target = new Store();
-        Target.setStoreName("Target");
+        // Saving created stores to the database
         storeRepository.save(Target);
-        Store BestBuy = new Store();
         storeRepository.save(BestBuy);
-
+        storeRepository.save(Walmart);
+        storeRepository.save(HomeDepot);
+        storeRepository.save(CVS);
 
         // Creating Store Sections
-        StoreSection electronicsSection = new StoreSection();
-        electronicsSection.setSectionName("Electronics Section");
-        electronicsSection.setStore(Target);
-        storeSectionRepository.save(electronicsSection);
 
-        StoreSection clothingSection = new StoreSection();
-        clothingSection.setSectionName("Clothing Section");
-        clothingSection.setStore(Target);
-        storeSectionRepository.save(clothingSection);
+        StoreSection B16 = new StoreSection("B16 Electronics", Target);
+        storeSectionRepository.save(B16);
+
+        StoreSection B17 = new StoreSection("B17 Electronics", Target);
+        storeSectionRepository.save(B17);
+
+        StoreSection A19 = new StoreSection("A19 Clothing", Target);
+        storeSectionRepository.save(A19);
+
+        StoreSection C12 = new StoreSection("C12 Appliances", Target);
+        storeSectionRepository.save(C12);
+
+        StoreSection D10 = new StoreSection("D10 Home Decor", Target);
+        storeSectionRepository.save(D10);
+
+        StoreSection E08 = new StoreSection("E08 Toys", Target);
+        storeSectionRepository.save(E08);
+
+        StoreSection F06 = new StoreSection("F06 Beauty", Target);
+        storeSectionRepository.save(F06);
+
 
         // Creating products
-        Product product1 = new Product();
-        product1.setProductName("Laptop");
-        product1.setDescription("High-performance laptop with Intel Core i7 processor.");
-        product1.setCategory("Electronics");
-        product1.setPrice(1200);
-        product1.setQuantity(10);
-        product1.setStoreSection(electronicsSection);
+        Product laptop = new Product("Laptop", "High-performance laptop with Intel Core i7 processor.", "Electronics", 1200, 10);
+        Product tShirt = new Product("T-Shirt", "Cotton t-shirt with a printed logo.", "Clothing", 20, 50);
+        Product smartPhone = new Product("Smartphone", "Latest smartphone with a high-resolution display.", "Electronics", 800, 20);
+        Product jeans = new Product("Jeans", "Men's blue jeans.", "Clothing", 50, 30);
+        Product smartTV = new Product("Smart TV", "Ultra HD smart TV with built-in streaming apps.", "Electronics", 900, 5);
+        Product wirelessHeadphones = new Product("Wireless Headphones", "Bluetooth wireless headphones with noise cancellation.", "Electronics", 150, 15);
+        Product digitalCamera = new Product("Digital Camera", "High-resolution digital camera with various shooting modes.", "Electronics", 400, 8);
+        Product bluetoothSpeaker = new Product("Bluetooth Speaker", "Portable Bluetooth speaker with excellent sound quality.", "Electronics", 80, 20);
+        Product kitchenBlender = new Product("Kitchen Blender", "Powerful blender for making smoothies and soups.", "Appliances", 50, 10);
+        Product coffeeMaker = new Product("Coffee Maker", "Programmable coffee maker with built-in grinder.", "Appliances", 70, 12);
+        Product tableLamp = new Product("Table Lamp", "Modern table lamp with adjustable brightness.", "Home Decor", 50, 15);
+        Product throwPillow = new Product("Throw Pillow", "Soft and cozy throw pillow for your living room.", "Home Decor", 25, 20);
 
-        Product product2 = new Product();
-        product2.setId(2L);
-        product2.setProductName("T-Shirt");
-        product2.setDescription("Cotton t-shirt with a printed logo.");
-        product2.setCategory("Clothing");
-        product2.setPrice(20);
-        product2.setQuantity(50);
-        product2.setStoreSection(clothingSection);
-
-        Product product3 = new Product();
-        product3.setId(3L);
-        product3.setProductName("Smartphone");
-        product3.setDescription("Latest smartphone with a high-resolution display.");
-        product3.setCategory("Electronics");
-        product3.setPrice(800);
-        product3.setQuantity(20);
-        product3.setStoreSection(electronicsSection);
-
-        Product product4 = new Product();
-        product4.setId(4L);
-        product4.setProductName("Jeans");
-        product4.setDescription("Men's blue jeans.");
-        product4.setCategory("Clothing");
-        product4.setPrice(50);
-        product4.setQuantity(30);
-        product4.setStoreSection(clothingSection);
 
         //Adding a list of products to the store isles
-        List<Product> isle4 = List.of(product1, product3);
-        List<Product> isle17 = List.of(product2, product4);
+        List<Product> electronicsSectionB16 = List.of(wirelessHeadphones, digitalCamera, bluetoothSpeaker);
+        List<Product> electronicsSectionB17 = List.of(laptop, smartPhone, smartTV);
+        List<Product> clothingSectionA19 = List.of(tShirt, jeans);
+        List<Product> applianceSectionC12 = List.of(kitchenBlender, coffeeMaker);
+        List<Product> homeDecorSectionD10 = List.of(tableLamp, throwPillow);
 
         //Adding isles of products to store sections
-        electronicsSection.setProductList(isle4);
-        clothingSection.setProductList(isle17);
+        B16.setProductList(electronicsSectionB16);
+        B17.setProductList(electronicsSectionB17);
+        A19.setProductList(clothingSectionA19);
+        C12.setProductList(applianceSectionC12);
+        D10.setProductList(homeDecorSectionD10);
 
         //Adding a list of store sections to the store
-        Target.setStoreSectionsList(List.of(electronicsSection, clothingSection));
+        Target.setStoreSectionsList(List.of(B16, B17, A19, C12, D10));
 
 
         //adding products to the store-section(Needs to be fixed)
-        product1.setStoreSection(electronicsSection);
-
-//        //Adding stores to the database
-//        storeRepository.save(Target);
-//        storeRepository.save(BestBuy);
+        product1.setStoreSection(B16);
+        product2.setStoreSection();
 
 
         user5.setRole("Admin");
