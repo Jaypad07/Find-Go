@@ -58,7 +58,7 @@ public class DataLoader implements CommandLineRunner {
         Target.setStoreName("Target");
         Store BestBuy = new Store();
 
-        // Creating Store isles
+        // Creating Store Sections
         StoreSection electronicsSection = new StoreSection();
         electronicsSection.setSectionName("Electronics Section");
         electronicsSection.setStore(Target);
