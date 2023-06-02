@@ -74,7 +74,7 @@ public class ProductService {
                 productRepository.save(existingProduct);
                 return existingProduct;
             } else throw new ProductNotFoundException("Product with id " + productId + " not found.");
-        } else throw new NoAuthorizationException("User not authorized to update product.");
+        } else throw new NoAuthorizationException("You are not authorized to update this product.");
     }
 
     public Product deleteProduct(Long productId) {
