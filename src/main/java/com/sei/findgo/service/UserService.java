@@ -1,6 +1,7 @@
 package com.sei.findgo.service;
 
 import com.sei.findgo.exceptions.InformationExistException;
+import com.sei.findgo.exceptions.InformationNotFoundException;
 import com.sei.findgo.models.User;
 import com.sei.findgo.models.request.LoginRequest;
 import com.sei.findgo.models.response.LoginResponse;
@@ -8,6 +9,7 @@ import com.sei.findgo.repository.UserRepository;
 import com.sei.findgo.security.JWTUtils;
 import com.sei.findgo.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,8 +29,12 @@ public class UserService {
     private MyUserDetails myUserDetails;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils, @Lazy AuthenticationManager authenticationManager, @Lazy MyUserDetails myUserDetails ){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
+        this.myUserDetails = myUserDetails;
     }
 
     public User registerUser(User userObject){
@@ -53,5 +61,19 @@ public class UserService {
             return ResponseEntity.ok(new LoginResponse("Username or password is incorrect"));
         }
     }
+
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
+
+    public User getCurrentUser(){
+        Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
+        if (user.isPresent()) {
+            return user.get();
+        } else throw new InformationNotFoundException("User with Id " + getCurrentLoggedInUser().getId() + " does not exist.");
+    }
+
+
 
 }
