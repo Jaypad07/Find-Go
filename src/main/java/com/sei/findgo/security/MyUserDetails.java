@@ -1,6 +1,6 @@
 package com.sei.findgo.security;
 
-import com.sei.smartrx.models.User;
+import com.sei.findgo.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,11 +8,6 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class MyUserDetails implements UserDetails{
-    /**
-     * UserDetails is an interface that Spring Security uses for user authentication.
-     * this class is important because it allows you to access the user's details and custom properties.
-     * This class will be used to create a UserDetails object that will be used by Spring Security.
-     */
 
     private final User user;
 

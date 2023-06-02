@@ -35,7 +35,4 @@ public class UserController {
         return userService.loginUser(loginRequest);
     }
 
-    public void getUser() {
-        Optional<User> user = userRepository.findById(1L);
-    }
 }
