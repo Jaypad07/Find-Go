@@ -6,7 +6,9 @@ import com.sei.findgo.models.StoreSection;
 import com.sei.findgo.models.User;
 import com.sei.findgo.repository.ProductRepository;
 import com.sei.findgo.repository.StoreRepository;
+import com.sei.findgo.repository.StoreSectionRepository;
 import com.sei.findgo.repository.UserRepository;
+import com.sei.findgo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,11 +18,11 @@ import java.util.List;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     private StoreRepository storeRepository;
@@ -37,6 +39,14 @@ public class DataLoader implements CommandLineRunner {
         this.productRepository = productRepository;
     }
 
+    private StoreSectionRepository storeSectionRepository;
+
+    @Autowired
+    public void setStoreSectionRepository(StoreSectionRepository storeSectionRepository) {
+        this.storeSectionRepository = storeSectionRepository;
+    }
+
+
     @Override
     public void run(String... args) throws Exception {
         loadSeedData();
@@ -52,20 +62,25 @@ public class DataLoader implements CommandLineRunner {
         User user4 = new User("Sophia", "sophia@example.com", "password4" , "User");
         User user5 = new User("William", "william@example.com", "password5", "User");
 
-        user5.setRole("Admin");
+
 
         Store Target = new Store();
         Target.setStoreName("Target");
+        storeRepository.save(Target);
         Store BestBuy = new Store();
+        storeRepository.save(BestBuy);
+
 
         // Creating Store Sections
         StoreSection electronicsSection = new StoreSection();
         electronicsSection.setSectionName("Electronics Section");
         electronicsSection.setStore(Target);
+        storeSectionRepository.save(electronicsSection);
 
         StoreSection clothingSection = new StoreSection();
         clothingSection.setSectionName("Clothing Section");
-        electronicsSection.setStore(Target);
+        clothingSection.setStore(Target);
+        storeSectionRepository.save(clothingSection);
 
         // Creating products
         Product product1 = new Product();
@@ -114,16 +129,23 @@ public class DataLoader implements CommandLineRunner {
         //Adding a list of store sections to the store
         Target.setStoreSectionsList(List.of(electronicsSection, clothingSection));
 
-        //Adding stores to the database
-        storeRepository.save(Target);
-        storeRepository.save(BestBuy);
 
+        //adding products to the store-section(Needs to be fixed)
+        product1.setStoreSection(electronicsSection);
+
+//        //Adding stores to the database
+//        storeRepository.save(Target);
+//        storeRepository.save(BestBuy);
+
+
+        user5.setRole("Admin");
         //Adding users to the database
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
-        userRepository.save(user4);
-        userRepository.save(user5);
+      userService.registerUser(user1);
+      userService.registerUser(user2);
+      userService.registerUser(user3);
+      userService.registerUser(user4);
+      userService.registerUser(user5);
+
 
         //Adding products to the database
         productRepository.save(product1);
@@ -132,5 +154,7 @@ public class DataLoader implements CommandLineRunner {
         productRepository.save(product4);
 
         System.out.println("Seed Data Loaded");
+        System.out.println(user5);
+
     }
 }

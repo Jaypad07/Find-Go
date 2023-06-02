@@ -18,17 +18,21 @@ public class ProductService {
 
     private ProductRepository productRepository;
 
-    private UserRepository userRepository;
-
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
+    private UserRepository userRepository;
+
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+
+
+
 
     public Product addProduct(Product productObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
@@ -38,16 +42,11 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent()) {
             List<Product> productList = productRepository.findAll();
             if (productList.size() == 0) {
                 throw new InformationNotFoundException("No products found.");
             } else return productList;
-        } else {
-            throw new InformationNotFoundException("User not found");
         }
-    }
 
     public Product getProductById(Long productId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());

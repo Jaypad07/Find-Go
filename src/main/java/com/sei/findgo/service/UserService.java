@@ -40,7 +40,9 @@ public class UserService {
     public User registerUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
-            userObject.setRole("ROLE_USER");
+            if (userObject.getRole() == null) {
+                userObject.setRole("User");
+            }
             return userRepository.save(userObject);
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
 

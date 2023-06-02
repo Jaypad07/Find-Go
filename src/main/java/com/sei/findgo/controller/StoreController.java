@@ -43,10 +43,13 @@ public class StoreController {
         return storeService.findStoreByLocation(location);
     }
 
+    @PutMapping(path = "auth/stores/{storeId}")
+    public Store updateStore(@PathVariable("storeId") int storeId, @RequestBody Store storeObject) {
+        return storeService.updateStore(storeId, storeObject);
+    }
+
     @DeleteMapping(path = "auth/stores/{storeId}")
     public String deleteStore(@PathVariable("storeId") int storeId) {
         return storeService.deleteStore(storeId);
     }
-
-
 }
