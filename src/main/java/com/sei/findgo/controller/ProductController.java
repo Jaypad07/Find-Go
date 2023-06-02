@@ -18,13 +18,28 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @PostMapping(path = "/auth/products")
+    public Product addProduct(@RequestBody Product productObject) {
+        return productService.addProduct(productObject);
+    }
+
     @GetMapping(path = "/products")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
+    @GetMapping(path = "/products/{productId}")
+    public Product getProductById(@PathVariable Long productId) {
+        return productService.getProductById(productId);
+    }
+
     @PutMapping(path="/auth/products/{productId}")
     public Product updateProduct(@PathVariable Long productId, @RequestBody Product productObject) {
         return productService.updateProduct(productObject, productId);
+    }
+
+    @DeleteMapping(path="/auth/products/{productId}")
+    public void deleteProduct(@PathVariable Long productId) {
+        productService.deleteProduct(productId);
     }
 }

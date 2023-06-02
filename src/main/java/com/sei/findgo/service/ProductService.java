@@ -7,9 +7,7 @@ import com.sei.findgo.models.Product;
 import com.sei.findgo.models.User;
 import com.sei.findgo.repository.ProductRepository;
 import com.sei.findgo.repository.UserRepository;
-import com.sei.findgo.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,22 +30,28 @@ public class ProductService {
         this.userRepository = userRepository;
     }
 
+    public Product addProduct(Product productObject) {
+        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
+        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+            return productRepository.save(productObject);
+        } else throw new NoAuthorizationException("User not authorized to add product.");
+    }
+
     public List<Product> getAllProducts() {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if(user.isPresent()){
+        if (user.isPresent()) {
             List<Product> productList = productRepository.findAll();
             if (productList.size() == 0) {
                 throw new InformationNotFoundException("No products found.");
             } else return productList;
-        }
-        else{
+        } else {
             throw new InformationNotFoundException("user not found");
         }
     }
 
     public Product getProductById(Long productId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if(user.isPresent()){
+        if (user.isPresent()) {
             Optional<Product> product = productRepository.findById(productId);
             if (product.isPresent()) {
                 return product.get();
@@ -69,12 +73,24 @@ public class ProductService {
                 existingProduct.setStoreSection(productObject.getStoreSection());
                 productRepository.save(existingProduct);
                 return existingProduct;
-            } else {
-                throw new ProductNotFoundException("Product with id " + productId + " not found.");
-            }
-        } else {
-            throw new NoAuthorizationException("User not authorized to update product.");
-        }
+            } else throw new ProductNotFoundException("Product with id " + productId + " not found.");
+        } else throw new NoAuthorizationException("User not authorized to update product.");
     }
 
+    public Product deleteProduct(Long productId) {
+        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
+        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+            Optional<Product> product = productRepository.findById(productId);
+            if (product.isPresent()) {
+                productRepository.deleteById(productId);
+                return product.get();
+            } else throw new ProductNotFoundException("Product with id " + productId + " not found.");
+        } else throw new NoAuthorizationException("User not authorized to delete product.");
+    }
 }
+
+
+
+
+
+
