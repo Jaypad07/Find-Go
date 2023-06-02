@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -116,30 +118,40 @@ public class DataLoader implements CommandLineRunner {
         Product throwPillow = new Product("Throw Pillow", "Soft and cozy throw pillow for your living room.", "Home Decor", 25, 20);
 
 
-        //Adding a list of products to the store isles
+
+        // Grouping products to a list
         List<Product> electronicsSectionB16 = List.of(wirelessHeadphones, digitalCamera, bluetoothSpeaker);
         List<Product> electronicsSectionB17 = List.of(laptop, smartPhone, smartTV);
         List<Product> clothingSectionA19 = List.of(tShirt, jeans);
         List<Product> applianceSectionC12 = List.of(kitchenBlender, coffeeMaker);
         List<Product> homeDecorSectionD10 = List.of(tableLamp, throwPillow);
 
-        //Adding isles of products to store sections
+        //Adding grouped products to store sections
         B16.setProductList(electronicsSectionB16);
         B17.setProductList(electronicsSectionB17);
         A19.setProductList(clothingSectionA19);
         C12.setProductList(applianceSectionC12);
         D10.setProductList(homeDecorSectionD10);
 
-        //Adding a list of store sections to the store
+        //Assigning store sections filled with products to a specific store
         Target.setStoreSectionsList(List.of(B16, B17, A19, C12, D10));
 
 
-        //adding products to the store-section(Needs to be fixed)
-        product1.setStoreSection(B16);
-        product2.setStoreSection();
+        //adding products to the store-section
+        laptop.setStoreSection(B17);
+        tShirt.setStoreSection(A19);
+        smartPhone.setStoreSection(B17);
+        jeans.setStoreSection(A19);
+        smartTV.setStoreSection(B17);
+        wirelessHeadphones.setStoreSection(B16);
+        digitalCamera.setStoreSection(B16);
+        bluetoothSpeaker.setStoreSection(B16);
+        kitchenBlender.setStoreSection(C12);
+        coffeeMaker.setStoreSection(C12);
+        tableLamp.setStoreSection(D10);
+        throwPillow.setStoreSection(D10);
 
 
-        user5.setRole("Admin");
         //Adding users to the database
       userService.registerUser(user1);
       userService.registerUser(user2);
@@ -148,11 +160,24 @@ public class DataLoader implements CommandLineRunner {
       userService.registerUser(user5);
 
 
-        //Adding products to the database
-        productRepository.save(product1);
-        productRepository.save(product2);
-        productRepository.save(product3);
-        productRepository.save(product4);
+        List<Product> targetProducts = Arrays.asList(
+                laptop,
+                tShirt,
+                smartPhone,
+                jeans,
+                smartTV,
+                wirelessHeadphones,
+                digitalCamera,
+                bluetoothSpeaker,
+                kitchenBlender,
+                coffeeMaker,
+                tableLamp,
+                throwPillow
+        );
+
+        productRepository.saveAll(targetProducts);
+
+
 
         System.out.println("Seed Data Loaded");
         System.out.println(user5);
