@@ -61,7 +61,7 @@ public class ProductService {
     }
 
     public List<Product> getProductsByCategory(String category) {
-        List<Product> productList = productRepository.findByCategory(category);
+        List<Product> productList = productRepository.findProductsByCategoryIgnoreCase(category);
         if (productList.size() == 0) {
             throw new InformationNotFoundException("No products found.");
         } else return productList;
