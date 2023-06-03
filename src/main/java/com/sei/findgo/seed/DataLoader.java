@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,9 +51,6 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         loadSeedData();
     }
-
-    byte[] mapImage = {1, 2, 3};
-
     private void loadSeedData() {
 
         System.out.println("Calling Seed Data");
@@ -66,11 +62,11 @@ public class DataLoader implements CommandLineRunner {
         User user5 = new User("William", "william@example.com", "password5", "Admin");
 
 
-        Store Target = new Store("Target", "123 Main Street", "Department Store", mapImage);
-        Store BestBuy= new Store("Best Buy", "456 Elm Avenue", "Electronics", mapImage);
-        Store Walmart = new Store("Walmart", "789 Oak Boulevard", "Retail Store", mapImage);
-        Store HomeDepot = new Store("Home Depot", "321 Maple Lane", "Home Improvement", mapImage);
-        Store CVS = new Store("CVS", "987 Pine Road", "Health", mapImage);
+        Store Target = new Store("Target", "123 Main Street", "Department Store", "mapImage");
+        Store BestBuy= new Store("Best Buy", "456 Elm Avenue", "Electronics", "mapImage");
+        Store Walmart = new Store("Walmart", "789 Oak Boulevard", "Retail Store", "mapImage");
+        Store HomeDepot = new Store("Home Depot", "321 Maple Lane", "Home Improvement", "mapImage");
+        Store CVS = new Store("CVS", "987 Pine Road", "Health", "mapImage");
 
         // Saving created stores to the database
         storeRepository.save(Target);
@@ -174,13 +170,8 @@ public class DataLoader implements CommandLineRunner {
                 tableLamp,
                 throwPillow
         );
-
         productRepository.saveAll(targetProducts);
-
-
-
         System.out.println("Seed Data Loaded");
-        System.out.println(user5);
 
     }
 }

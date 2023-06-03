@@ -17,12 +17,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping (path = "/auth/users/register")
+    @PostMapping (path = "/users/register")
     public User registerUser(@RequestBody User userObject) {
         return userService.registerUser(userObject);
     }
 
-    @PostMapping(path="/auth/users/login")
+    @PostMapping(path="/users/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest){
         return userService.loginUser(loginRequest);
     }

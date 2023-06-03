@@ -26,7 +26,7 @@ public class Store {
     private String location;
 
     @Column
-    private byte[] map;
+    private String map;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "storeList")
@@ -39,7 +39,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String storeName, String location, String description, byte[] map) {
+    public Store(String storeName, String location, String description, String map) {
         this.storeName = storeName;
         this.description = description;
         this.location = location;
@@ -70,8 +70,12 @@ public class Store {
         this.location = location;
     }
 
-    public byte[] getMap() {
+    public String getMap() {
         return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
     }
 
     public String getDescription() {
@@ -80,10 +84,6 @@ public class Store {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setMap(byte[] map) {
-        this.map = map;
     }
 
     public List<User> getUserList() {
@@ -107,8 +107,9 @@ public class Store {
         return "Store{" +
                 "id=" + id +
                 ", storeName='" + storeName + '\'' +
+                ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", map=" + Arrays.toString(map) +
+                ", map='" + map + '\'' +
                 ", userList=" + userList +
                 ", storeSectionsList=" + storeSectionsList +
                 '}';

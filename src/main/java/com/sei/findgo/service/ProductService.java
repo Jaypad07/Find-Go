@@ -31,9 +31,6 @@ public class ProductService {
     }
 
 
-
-
-
     public Product addProduct(Product productObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
