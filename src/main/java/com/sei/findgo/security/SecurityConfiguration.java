@@ -49,8 +49,11 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.GET,
                         "/api/products",
                         "/api/products/search/{productName}",
-                        "/api/products/search/category/{categoryName}"
-
+                        "/api/products/search/category/{categoryName}",
+                        "/api/stores",
+                        "/stores/search/{storeId}",
+                        "/stores/search/{storeName}",
+                        "/stores/search{location}"
 
                 ).permitAll()
                 .anyRequest().authenticated()
