@@ -84,22 +84,23 @@ public class UserService {
         } else throw new InformationNotFoundException("User with Id " + id + " does not exist.");
     }
 
-    public User updateCurrentUser(User userObject) throws InformationNotFoundException {
-        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
-            User updatedUser = getCurrentLoggedInUser();
-            updatedUser.setUserName(userObject.getUserName());
-            updatedUser.setEmail(getCurrentLoggedInUser().getEmail());
-            updatedUser.setPassword(getCurrentLoggedInUser().getPassword());
-            userRepository.save(updatedUser);
-            return updatedUser;
-        }else throw new NoAuthorizationException("You are not authorized to update this user.");
+    public User updateUser(Long userId,  User userObject) throws InformationNotFoundException {
+        if (getCurrentLoggedInUser().getRole().equals("Manager") || getCurrentLoggedInUser().getRole().equals("Admin")) {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isPresent()) {
+                User updatedUser = user.get();
+                updatedUser.setUserName(userObject.getUserName());
+                updatedUser.setEmail(userObject.getEmail());
+                updatedUser.setPassword(userObject.getPassword());
+                userRepository.save(updatedUser);
+                return updatedUser;
+            } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
+        } else throw new NoAuthorizationException("You are not authorized to update this user.");
     }
 
-    public String deleteCurrentUser() throws InformationNotFoundException{
-        User deletedUser = getCurrentLoggedInUser();
-        userRepository.delete(deletedUser);
-        return "User with Id " + deletedUser.getId() + " has been deleted.";
+
+    public String deleteUser(Long userId) {
+        if (getAUserById(userId).)
     }
 
 
