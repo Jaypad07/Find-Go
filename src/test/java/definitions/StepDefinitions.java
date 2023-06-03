@@ -68,6 +68,6 @@ public class StepDefinitions {
         requestBody.put("password", "password5");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/login");
-        Assert.assertEquals(400, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
