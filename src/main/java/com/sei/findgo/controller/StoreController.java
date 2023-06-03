@@ -24,14 +24,14 @@ public class StoreController {
         return storeService.addStore(storeObject);
     }
 
-    @PostMapping(path = "/auth/storeSection")
-    public StoreSection addStoreSection(@RequestBody Store storeSectionObject) {
-        return storeService.addStoreSection(storeSectionObject);
+    @PostMapping(path = "/auth/storeSection/{storeId}")
+    public StoreSection addStoreSection(@PathVariable ("storeId") int storeId, @RequestBody StoreSection storeSectionObject) {
+        return storeService.addStoreSection(storeId, storeSectionObject);
     }
 
-    @PostMapping(path = "/auth/storeSection/update")
-    public StoreSection updateStoreSection(@RequestBody Store storeSectionObject) {
-        return storeService.updateStoreSection(storeSectionObject);
+    @PutMapping(path = "/auth/storeSection/{storeId}/{storeSectionId}")
+    public StoreSection updateStoreSection(@PathVariable ("storeId") int storeId, @PathVariable ("storeSectionId") int storeSectionId, @RequestBody StoreSection storeSectionObject) {
+        return storeService.updateStoreSection(storeId, storeSectionId, storeSectionObject);
     }
 
     @GetMapping("/stores")

@@ -28,10 +28,37 @@ public class StoreService {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin")) {
             return storeRepository.save(storeObject);
-        } else throw new InformationNotFoundException("You are not authorized to perform this action");
+        } else throw new NoAuthorizationException("You are not authorized to perform this action");
     }
 
-    public StoreSection
+    public StoreSection addStoreSection(int storeId, StoreSection storeSectionObject) {
+        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
+        if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
+            Optional<Store> store = storeRepository.findById(storeId);
+            if (store.isPresent()) {
+                Store existingStore = store.get();
+                existingStore.getStoreSectionsList().add(storeSectionObject);
+                storeRepository.save(existingStore);
+                return storeSectionObject;
+            } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else throw new NoAuthorizationException("You are not authorized to perform this action");
+    }
+
+    public StoreSection updateStoreSection(int storeId, int storeSectionId, StoreSection storeSectionObject) {
+        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
+        if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
+            Optional<Store> store = storeRepository.findById(storeId);
+            if (store.isPresent()) {
+                Store existingStore = store.get();
+               StoreSection updatedSection = existingStore.getStoreSectionsList().get(storeSectionId);
+               updatedSection.setSectionName(storeSectionObject.getSectionName());
+               updatedSection.setProductList(storeSectionObject.getProductList());
+               storeRepository.save(existingStore);
+               return updatedSection;
+            } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else throw new NoAuthorizationException("You are not authorized to perform this action");
+    }
+
 
     public List<Store> getAllStores() {
         List<Store> storeList = storeRepository.findAll();
@@ -73,7 +100,7 @@ public class StoreService {
                 storeRepository.save(existingStore);
                 return existingStore;
             } else throw new InformationNotFoundException("The store you are looking for does not exist");
-        } else throw new InformationNotFoundException("You are not authorized to perform this action");
+        } else throw new NoAuthorizationException("You are not authorized to perform this action");
     }
 
     public Store deleteStore(int storeId) {

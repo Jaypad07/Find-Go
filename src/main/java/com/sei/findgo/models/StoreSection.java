@@ -70,6 +70,7 @@ public class StoreSection {
                 "id=" + id +
                 ", sectionName='" + sectionName + '\'' +
                 ", store=" + store +
+                ", productList=" + productList +
                 '}';
     }
 }
