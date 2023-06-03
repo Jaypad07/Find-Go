@@ -77,11 +77,11 @@ public class UserService {
         return userDetails.getUser();
     }
 
-    public User getCurrentUser(){
-        Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
+    public User getAUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             return user.get();
-        } else throw new InformationNotFoundException("User with Id " + getCurrentLoggedInUser().getId() + " does not exist.");
+        } else throw new InformationNotFoundException("User with Id " + id + " does not exist.");
     }
 
     public User updateCurrentUser(User userObject) throws InformationNotFoundException {
