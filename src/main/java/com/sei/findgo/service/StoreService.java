@@ -60,7 +60,7 @@ public class StoreService {
 
     public Store updateStore(int storeId, Store storeObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equalsIgnoreCase("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+        if (user.isPresent() && user.get().getRole().equals("Admin")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 Store existingStore = store.get();
@@ -75,7 +75,7 @@ public class StoreService {
 
     public String deleteStore(int storeId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+        if (user.isPresent() && user.get().getRole().equals("Admin")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 storeRepository.deleteById(storeId);
