@@ -25,7 +25,7 @@ public class StoreService {
 
     public Store addStore(Store storeObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+        if (user.isPresent() && user.get().getRole().equals("Admin")) {
             return storeRepository.save(storeObject);
         } else throw new InformationNotFoundException("You are not authorized to perform this action");
     }
