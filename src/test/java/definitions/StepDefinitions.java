@@ -54,7 +54,7 @@ public class StepDefinitions {
 
     @Then("I should be successfully registered")
     public void iShouldBeSuccessfullyRegistered() throws JSONException {
-        Assert.assertEquals(300, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 
 }
