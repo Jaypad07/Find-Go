@@ -104,12 +104,12 @@ public class UserService {
     }
 
 
-    public String deleteUser(Long userId) {
+    public User deleteUser(Long userId) {
         if (getCurrentLoggedInUser().getRole().equals("Admin")) {
             Optional<User> user = userRepository.findById(userId);
             if (user.isPresent()) {
                 userRepository.deleteById(userId);
-                return "User with id " + userId + " deleted successfully.";
+                return user.get();
             } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
         } else throw new NoAuthorizationException("Insufficient privileges to delete user information");
     }

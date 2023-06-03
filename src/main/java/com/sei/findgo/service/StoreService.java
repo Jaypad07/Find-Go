@@ -73,13 +73,13 @@ public class StoreService {
         } else throw new InformationNotFoundException("You are not authorized to perform this action");
     }
 
-    public String deleteStore(int storeId) {
+    public Store deleteStore(int storeId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 storeRepository.deleteById(storeId);
-                return store.get() + " deleted successfully.";
+                return store.get();
             } else throw new ProductNotFoundException("Store with id " + storeId + " not found.");
         } else throw new NoAuthorizationException("User not authorized to delete product.");
     }

@@ -57,7 +57,7 @@ public class DataLoader implements CommandLineRunner {
 
         User user1 = new User("John", "john@example.com", "password1", "User");
         User user2 = new User("Emma", "emma@example.com", "password2" , "User");
-        User user3 = new User("Michael", "michael@example.com", "password3" , "User");
+        User user3 = new User("Michael", "michael@example.com", "password3" , "Manager");
         User user4 = new User("Sophia", "sophia@example.com", "password4" , "User");
         User user5 = new User("William", "william@example.com", "password5", "Admin");
 

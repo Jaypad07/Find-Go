@@ -49,7 +49,7 @@ public class StoreController {
     }
 
     @DeleteMapping(path = "auth/stores/{storeId}")
-    public String deleteStore(@PathVariable("storeId") int storeId) {
+    public Store deleteStore(@PathVariable("storeId") int storeId) {
         return storeService.deleteStore(storeId);
     }
 }
