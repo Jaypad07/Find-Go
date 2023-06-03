@@ -58,7 +58,6 @@ public class StoreService {
         } else throw new InformationNotFoundException("The store you are looking for does not exist");
     }
 
-
     public Store updateStore(int storeId, Store storeObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equalsIgnoreCase("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {

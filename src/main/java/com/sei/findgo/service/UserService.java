@@ -69,7 +69,9 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        if (getCurrentLoggedInUser().getRole().equals("Admin")) {
+            return userRepository.findAll();
+        } else throw new NoAuthorizationException("Insufficient privileges to view all users");
     }
 
     public static User getCurrentLoggedInUser() {
@@ -92,7 +94,10 @@ public class UserService {
                 updatedUser.setUserName(userObject.getUserName());
                 updatedUser.setEmail(userObject.getEmail());
                 updatedUser.setPassword(userObject.getPassword());
-                userRepository.save(updatedUser);
+                if (getCurrentLoggedInUser().getRole().equalsIgnoreCase("Admin")) {
+                    updatedUser.setRole(userObject.getRole());
+                    userRepository.save(updatedUser);
+                }else userRepository.save(updatedUser);
                 return updatedUser;
             } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
         } else throw new NoAuthorizationException("Insufficient privileges to update user information");
