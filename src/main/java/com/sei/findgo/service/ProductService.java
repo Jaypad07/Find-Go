@@ -54,7 +54,7 @@ public class ProductService {
     }
 
     public Product getProductByName(String productName) {
-        Optional<Product> product = productRepository.findByProductName(productName);
+        Optional<Product> product = productRepository.findByProductNameIgnoreCase(productName);
         if (product.isPresent()) {
             return product.get();
         } else throw new ProductNotFoundException("Product with name " + productName + " not found.");
