@@ -95,13 +95,17 @@ public class UserService {
                 userRepository.save(updatedUser);
                 return updatedUser;
             } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
-        } else throw new NoAuthorizationException("You are not authorized to update this user.");
+        } else throw new NoAuthorizationException("Insufficient privileges to update user information");
     }
 
 
     public String deleteUser(Long userId) {
-        if (getAUserById(userId).)
+        if (getCurrentLoggedInUser().getRole().equals("Admin")) {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isPresent()) {
+                userRepository.deleteById(userId);
+                return "User with id " + userId + " deleted successfully.";
+            } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
+        }else throw new NoAuthorizationException("Insufficient privileges to delete user information");
     }
-
-
 }

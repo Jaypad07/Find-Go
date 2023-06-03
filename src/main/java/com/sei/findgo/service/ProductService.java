@@ -74,8 +74,7 @@ public class ProductService {
     }
 
     public String deleteProduct(Long productId) {
-        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+        if (UserService.getCurrentLoggedInUser().getRole().equals("Manager") || UserService.getCurrentLoggedInUser().getRole().equals("Admin")) {
             Optional<Product> product = productRepository.findById(productId);
             if (product.isPresent()) {
                 productRepository.deleteById(productId);
