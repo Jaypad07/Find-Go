@@ -36,11 +36,11 @@ public class StepDefinitions {
     @Given("I am on the registration page")
     public void iAmOnTheRegistrationPage() throws JSONException {
         RequestSpecification request = RestAssured.given();
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("email", "example34@example.com");
-//        requestBody.put("password", "password5");
-//        request.header("Content-Type", "application/json");
-//        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/register");
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("email", "example34@example.com");
+        requestBody.put("password", "password5");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/register");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
