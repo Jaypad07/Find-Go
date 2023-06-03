@@ -93,7 +93,7 @@ public class UserService {
                 User updatedUser = user.get();
                 updatedUser.setUserName(userObject.getUserName());
                 updatedUser.setEmail(userObject.getEmail());
-                updatedUser.setPassword(userObject.getPassword());
+                updatedUser.setPassword(passwordEncoder.encode(userObject.getPassword()));
                 if (getCurrentLoggedInUser().getRole().equalsIgnoreCase("Admin")) {
                     updatedUser.setRole(userObject.getRole());
                     userRepository.save(updatedUser);
