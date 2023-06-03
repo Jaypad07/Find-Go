@@ -4,6 +4,7 @@ import com.sei.findgo.exceptions.InformationNotFoundException;
 import com.sei.findgo.exceptions.NoAuthorizationException;
 import com.sei.findgo.exceptions.ProductNotFoundException;
 import com.sei.findgo.models.Store;
+import com.sei.findgo.models.StoreSection;
 import com.sei.findgo.models.User;
 import com.sei.findgo.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class StoreService {
             return storeRepository.save(storeObject);
         } else throw new InformationNotFoundException("You are not authorized to perform this action");
     }
+
+    public StoreSection
 
     public List<Store> getAllStores() {
         List<Store> storeList = storeRepository.findAll();

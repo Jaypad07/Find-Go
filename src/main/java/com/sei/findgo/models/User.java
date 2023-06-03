@@ -40,7 +40,7 @@ public class User {
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.role = role; // Removing this here and only using set may allow it not to be set in register user
+        this.role = role;
     }
 
     public Long getId() {

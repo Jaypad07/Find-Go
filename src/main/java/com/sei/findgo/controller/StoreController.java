@@ -1,6 +1,7 @@
 package com.sei.findgo.controller;
 
 import com.sei.findgo.models.Store;
+import com.sei.findgo.models.StoreSection;
 import com.sei.findgo.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,16 @@ public class StoreController {
     @PostMapping(path = "/auth/stores")
     public Store addStore(@RequestBody Store storeObject) {
         return storeService.addStore(storeObject);
+    }
+
+    @PostMapping(path = "/auth/storeSection")
+    public StoreSection addStoreSection(@RequestBody Store storeSectionObject) {
+        return storeService.addStoreSection(storeSectionObject);
+    }
+
+    @PostMapping(path = "/auth/storeSection/update")
+    public StoreSection updateStoreSection(@RequestBody Store storeSectionObject) {
+        return storeService.updateStoreSection(storeSectionObject);
     }
 
     @GetMapping("/stores")
