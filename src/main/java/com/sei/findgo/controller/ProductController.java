@@ -33,6 +33,16 @@ public class ProductController {
         return productService.getProductById(productId);
     }
 
+    @GetMapping(path = "/products/search/{productName}")
+    public Product getProductByName(@PathVariable String productName) {
+        return productService.getProductByName(productName);
+    }
+
+    @GetMapping(path = "/products/search/category/{categoryName}")
+    public List<Product> getProductsByCategory(@PathVariable String categoryName) {
+        return productService.getProductsByCategory(categoryName);
+    }
+
     @PutMapping(path="/auth/products/{productId}")
     public Product updateProduct(@PathVariable Long productId, @RequestBody Product productObject) {
         return productService.updateProduct(productObject, productId);

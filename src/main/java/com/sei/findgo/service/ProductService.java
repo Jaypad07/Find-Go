@@ -32,8 +32,7 @@ public class ProductService {
 
 
     public Product addProduct(Product productObject) {
-        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+        if (UserService.getCurrentLoggedInUser().getRole().equals("Manager") || UserService.getCurrentLoggedInUser().getRole().equals("Admin")) {
             return productRepository.save(productObject);
         } else throw new NoAuthorizationException("User not authorized to add product.");
     }
@@ -46,13 +45,26 @@ public class ProductService {
         }
 
     public Product getProductById(Long productId) {
-        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent()) {
+        if (UserService.getCurrentLoggedInUser().getRole().equals("Manager") || UserService.getCurrentLoggedInUser().getRole().equals("Admin")) {
             Optional<Product> product = productRepository.findById(productId);
             if (product.isPresent()) {
                 return product.get();
             } else throw new ProductNotFoundException("Product with id " + productId + " not found.");
-        } else throw new InformationNotFoundException("user not found");
+        }else throw new NoAuthorizationException("User not authorized to view product.");
+    }
+
+    public Product getProductByName(String productName) {
+        Optional<Product> product = productRepository.findByProductName(productName);
+        if (product.isPresent()) {
+            return product.get();
+        } else throw new ProductNotFoundException("Product with name " + productName + " not found.");
+    }
+
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> productList = productRepository.findByCategory(category);
+        if (productList.size() == 0) {
+            throw new InformationNotFoundException("No products found.");
+        } else return productList;
     }
 
     public Product updateProduct(Product productObject, Long productId) {

@@ -47,7 +47,12 @@ public class SecurityConfiguration {
                         "/api/users/login"
                 ).permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/api/products").permitAll()
+                        "/api/products",
+                        "/api/products/search/{productName}",
+                        "/api/products/search/category/{categoryName}"
+
+
+                ).permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

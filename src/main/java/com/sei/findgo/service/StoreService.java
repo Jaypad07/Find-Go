@@ -27,31 +27,28 @@ public class StoreService {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
             return storeRepository.save(storeObject);
-        }else throw new InformationNotFoundException("You are not authorized to perform this action");
+        } else throw new InformationNotFoundException("You are not authorized to perform this action");
     }
 
     public List<Store> getAllStores() {
-        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent()) {
-            List<Store> storeList = storeRepository.findAll();
-            if (storeList.size() == 0) {
-                throw new InformationNotFoundException("No stores found");
-            }else return storeList;
-        }else throw new InformationNotFoundException("User not found");
+        List<Store> storeList = storeRepository.findAll();
+        if (storeList.size() == 0) {
+            throw new InformationNotFoundException("No stores found");
+        } else return storeList;
     }
 
-    public  Store findStoreById(int id){
+    public Store findStoreById(int id) {
         Optional<Store> store = storeRepository.findById(id);
-        if(store.isPresent()){
+        if (store.isPresent()) {
             return store.get();
-        }else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else throw new InformationNotFoundException("The store you are looking for does not exist");
     }
 
-    public Store findStoreByName(String name){
+    public Store findStoreByName(String name) {
         Optional<Store> store = storeRepository.findByStoreName(name);
-        if(store.isPresent()){
+        if (store.isPresent()) {
             return store.get();
-        }else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else throw new InformationNotFoundException("The store you are looking for does not exist");
     }
 
     public Store findStoreByLocation(String location) {
@@ -64,7 +61,7 @@ public class StoreService {
 
     public Store updateStore(int storeId, Store storeObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
-        if (user.isPresent() && user.get().getRole().equals("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
+        if (user.isPresent() && user.get().getRole().equalsIgnoreCase("Manager") || user.isPresent() && user.get().getRole().equals("Admin")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 Store existingStore = store.get();
@@ -73,8 +70,8 @@ public class StoreService {
                 existingStore.setMap(storeObject.getMap());
                 storeRepository.save(existingStore);
                 return existingStore;
-            }else throw new InformationNotFoundException("The store you are looking for does not exist");
-        }else throw new InformationNotFoundException("You are not authorized to perform this action");
+            } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else throw new InformationNotFoundException("You are not authorized to perform this action");
     }
 
     public String deleteStore(int storeId) {
