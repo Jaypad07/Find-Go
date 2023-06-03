@@ -46,9 +46,7 @@ public class UserService {
                 userObject.setRole("User");
             }
             return userRepository.save(userObject);
-        } else
-            throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
-
+        } else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
     }
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
@@ -80,13 +78,15 @@ public class UserService {
     }
 
     public User getAUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return user.get();
-        } else throw new InformationNotFoundException("User with Id " + id + " does not exist.");
+        if (getCurrentLoggedInUser().getRole().equals("Admin")) {
+            Optional<User> user = userRepository.findById(id);
+            if (user.isPresent()) {
+                return user.get();
+            } else throw new InformationNotFoundException("User with Id " + id + " does not exist.");
+        } else throw new NoAuthorizationException("Insufficient privileges to view user information");
     }
 
-    public User updateUser(Long userId,  User userObject) throws InformationNotFoundException {
+    public User updateUser(Long userId, User userObject) throws InformationNotFoundException {
         if (getCurrentLoggedInUser().getRole().equals("Manager") || getCurrentLoggedInUser().getRole().equals("Admin")) {
             Optional<User> user = userRepository.findById(userId);
             if (user.isPresent()) {
@@ -97,7 +97,7 @@ public class UserService {
                 if (getCurrentLoggedInUser().getRole().equalsIgnoreCase("Admin")) {
                     updatedUser.setRole(userObject.getRole());
                     userRepository.save(updatedUser);
-                }else userRepository.save(updatedUser);
+                } else userRepository.save(updatedUser);
                 return updatedUser;
             } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
         } else throw new NoAuthorizationException("Insufficient privileges to update user information");
@@ -111,6 +111,6 @@ public class UserService {
                 userRepository.deleteById(userId);
                 return "User with id " + userId + " deleted successfully.";
             } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
-        }else throw new NoAuthorizationException("Insufficient privileges to delete user information");
+        } else throw new NoAuthorizationException("Insufficient privileges to delete user information");
     }
 }
