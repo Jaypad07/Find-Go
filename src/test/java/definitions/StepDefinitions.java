@@ -2,6 +2,7 @@ package definitions;
 
 import com.sei.findgo.FindGoApplication;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
@@ -69,5 +70,10 @@ public class StepDefinitions {
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/login");
         Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("I should be logged in successfully")
+    public void iShouldBeLoggedInSuccessfully() {
+        Assert.assertEquals(500, response.getStatusCode());
     }
 }

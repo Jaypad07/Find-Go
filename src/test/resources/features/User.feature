@@ -8,5 +8,5 @@
 Scenario: User Login
   Given I am on the login page
   When I enter valid login credentials (username, password)
-#  Then I should be logged in successfully
+  Then I should be logged in successfully
 
