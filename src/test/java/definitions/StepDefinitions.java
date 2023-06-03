@@ -74,6 +74,6 @@ public class StepDefinitions {
 
     @Then("I should be logged in successfully")
     public void iShouldBeLoggedInSuccessfully() {
-        Assert.assertEquals(500, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
