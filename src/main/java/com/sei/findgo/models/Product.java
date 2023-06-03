@@ -22,7 +22,7 @@ public class Product {
     private String category;
 
     @Column
-    private int price;
+    private int price; //change to double
 
     @Column
     private int quantity;
