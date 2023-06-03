@@ -52,9 +52,9 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-//    @Then("I should be successfully registered")
-//    public void iShouldBeSuccessfullyRegistered() throws JSONException {
-//        Assert.assertEquals(200, response.getStatusCode());
-//    }
+    @Then("I should be successfully registered")
+    public void iShouldBeSuccessfullyRegistered() throws JSONException {
+        Assert.assertEquals(300, response.getStatusCode());
+    }
 
 }
