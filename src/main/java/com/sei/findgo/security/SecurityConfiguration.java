@@ -51,9 +51,9 @@ public class SecurityConfiguration {
                         "/api/products/search/{productName}",
                         "/api/products/search/category/{categoryName}",
                         "/api/stores",
-                        "/stores/search/{storeId}",
-                        "/stores/search/{storeName}",
-                        "/stores/search{location}"
+                        "/api/stores/storeId/{storeId}",
+                        "/api/stores/search/{storeName}",
+                        "/api/stores/city/{location}"
 
                 ).permitAll()
                 .anyRequest().authenticated()

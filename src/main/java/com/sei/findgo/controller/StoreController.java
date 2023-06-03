@@ -28,7 +28,7 @@ public class StoreController {
         return storeService.getAllStores();
     }
 
-    @GetMapping(path = "/stores/search/{storeId}")
+    @GetMapping(path = "/stores/storeId/{storeId}")
     public Store getStore(@PathVariable("storeId") int storeId) {
         return storeService.findStoreById(storeId);
     }
@@ -38,7 +38,7 @@ public class StoreController {
         return storeService.findStoreByName(storeName);
     }
 
-    @GetMapping(path = "/stores/search/{location}")
+    @GetMapping(path = "/stores/city/{location}")
     public Store getStoreByLocation(@PathVariable("location") String location) {
         return storeService.findStoreByLocation(location);
     }

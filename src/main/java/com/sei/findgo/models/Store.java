@@ -34,6 +34,7 @@ public class Store {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<StoreSection> storeSectionsList;
 
     public Store() {
