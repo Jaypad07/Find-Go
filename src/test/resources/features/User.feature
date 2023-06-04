@@ -5,9 +5,9 @@ Feature: User is able to view stores and products
     Then the response should contain a list of all stores
 
   Scenario: User requests to get a store by name
-    Given the user wants to get a store by name
+    Given a store is available
     When the user sends a request to get the store by name
-    Then the response should contain the store details
+    Then the response should return the store details
 
   Scenario: User requests to get a store by city
     Given the user wants to get a store by city

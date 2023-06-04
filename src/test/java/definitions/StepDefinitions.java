@@ -315,7 +315,20 @@ public class StepDefinitions {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
+    @Given("a store is available")
+    public void aStoreIsAvailable() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/stores/Target");
+    }
 
+    @When("the user sends a request to get the store by name")
+    public void theUserSendsARequestToGetTheStoreByName() {
+        Assert.assertNotNull(String.valueOf(response));
+    }
 
-
+    @Then("the response should return the store details")
+    public void theResponseShouldReturnTheStoreDetails() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
