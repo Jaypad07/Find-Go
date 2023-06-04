@@ -372,7 +372,7 @@ public class StepDefinitions {
     public void theUserSendsARequestToGetTheProductsByCategory() {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
-        response = request.get(BASE_URL + port + "/api/products/category/Clothing");
+        response = request.get(BASE_URL + port + "/api/products/search/category/Clothing");
     }
 
     @Then("the response should contain a list of products in the specified category")
