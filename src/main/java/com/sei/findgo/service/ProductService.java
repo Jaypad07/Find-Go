@@ -85,12 +85,12 @@ public class ProductService {
         } else throw new NoAuthorizationException("You are not authorized to update this product.");
     }
 
-    public String deleteProduct(Long productId) {
+    public Product deleteProduct(Long productId) {
         if (UserService.getCurrentLoggedInUser().getRole().equals("Manager") || UserService.getCurrentLoggedInUser().getRole().equals("Admin")) {
             Optional<Product> product = productRepository.findById(productId);
             if (product.isPresent()) {
                 productRepository.deleteById(productId);
-                return product.get() + " deleted successfully.";
+                return product.get();
             } else throw new ProductNotFoundException("Product with id " + productId + " not found.");
         } else throw new NoAuthorizationException("User not authorized to delete product.");
     }

@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @DeleteMapping(path="/auth/products/{productId}")
-    public String deleteProduct(@PathVariable Long productId) {
+    public Product deleteProduct(@PathVariable Long productId) {
         return productService.deleteProduct(productId);
     }
 }

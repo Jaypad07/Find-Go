@@ -1,7 +1,6 @@
 package definitions;
 
 import com.sei.findgo.FindGoApplication;
-import com.sei.findgo.models.Product;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +9,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.assertj.core.util.Arrays;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -408,12 +406,11 @@ public class StepDefinitions {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
         request.header("Authorization", "Bearer "+ JWTTestKeyManager());
-        response = request.delete(BASE_URL + port + "/api/products/6");
+        response = request.delete(BASE_URL + port + "/api/auth/products/6");
     }
 
     @Then("the product should be deleted successfully")
     public void theProductShouldBeDeletedSuccessfully() {
-        Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
 }
