@@ -208,17 +208,23 @@ public class StepDefinitions {
         request.header("Authorization", "Bearer " + token);
     }
 
-    @When("a manager searches for a list of stores")
-    public void aManagerSearchesForAListOfStores() throws JSONException {
+
+
+    @Given("the user wants to find all stores")
+    public void theUserWantsToFindAllStores() {
+    }
+
+
+    @When("the user sends a request to get all stores")
+    public void theUserSendsARequestToGetAllStores() {
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(JWTTestKeyAdmin());
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/stores", HttpMethod.GET, entity, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
     }
 
-    @Then("the manager sees a list of stores")
-    public void theManagerSeesAListOfStores() {
+    @Then("the response should contain a list of all stores")
+    public void theResponseShouldContainAListOfAllStores() {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
