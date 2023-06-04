@@ -297,24 +297,6 @@ public class StepDefinitions {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
-
-    @Given("the user wants to get all products")
-    public void theUserWantsToGetAllProducts() {
-
-    }
-
-    @When("the user sends a request to get all products")
-    public void theUserSendsARequestToGetAllProducts() {
-        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/products", HttpMethod.GET, null, String.class);
-        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
-    }
-
-    @Then("the response should contain a list of all products")
-    public void theResponseShouldContainAListOfAllProducts() {
-        Assert.assertTrue(list.size() > 0);
-        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    }
-
     @Given("a store is available")
     public void aStoreIsAvailable() {
         RestAssured.baseURI = BASE_URL;
@@ -338,4 +320,32 @@ public class StepDefinitions {
         RequestSpecification request = RestAssured.given();
         response = request.get(BASE_URL + port + "/api/stores/city/Phoenix");
     }
+
+    @When("the user sends a request to get the store by city")
+    public void theUserSendsARequestToGetTheStoreByCity() {
+        Assert.assertNotNull(String.valueOf(response));
+    }
+
+    @Then("the response should contain the store information")
+    public void theResponseShouldContainTheStoreInformation() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Given("the user wants to get all products")
+    public void theUserWantsToGetAllProducts() {
+
+    }
+
+    @When("the user sends a request to get all products")
+    public void theUserSendsARequestToGetAllProducts() {
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/products", HttpMethod.GET, null, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+    }
+
+    @Then("the response should contain a list of all products")
+    public void theResponseShouldContainAListOfAllProducts() {
+        Assert.assertTrue(list.size() > 0);
+        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
 }

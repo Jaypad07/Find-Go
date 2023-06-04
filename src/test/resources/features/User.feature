@@ -12,7 +12,7 @@ Feature: User is able to view stores and products
   Scenario: User requests to get a store by city
     Given the user wants to get a store by city
     When the user sends a request to get the store by city
-    Then the response should contain the store details
+    Then the response should contain the store information
 
   Scenario: User requests to get all products
     Given the user wants to get all products
