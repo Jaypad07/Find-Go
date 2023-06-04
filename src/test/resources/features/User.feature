@@ -11,7 +11,7 @@ Scenario: User Login
 
   Scenario: Get All Users
     Given there are multiple users in the system
-#    When the client requests to get all users
+    When the client requests to get all users
 #    Then the response should contain a list of all users
 
 #  Scenario: Get User by ID

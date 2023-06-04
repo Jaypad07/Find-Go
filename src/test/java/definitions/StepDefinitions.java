@@ -100,4 +100,15 @@ public class StepDefinitions {
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+
+    @When("the client requests to get all users")
+    public void theClientRequestsToGetAllUsers() throws JSONException {
+        HttpHeaders headers = new HttpHeaders();
+
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
