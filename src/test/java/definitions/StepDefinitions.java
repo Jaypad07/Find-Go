@@ -204,7 +204,7 @@ public class StepDefinitions {
 
     @When("the Manager sends a request to get the store by ID")
     public void theManagerSendsARequestToGetTheStoreByID() {
-        RestAssured.baseURI = BASE_URL + port + "/api/stores/storesId/1";
+        RestAssured.baseURI = BASE_URL + port + "/api/stores/storeId/1";
         RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
         response = request.get();
     }
