@@ -380,4 +380,26 @@ public class StepDefinitions {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("the user submits the updated product details")
+    public void theUserSubmitsTheUpdatedProductDetails() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        request.header("Authorization", "Bearer "+ token);
+        requestBody.put("productName", "Levis Jeans");
+        requestBody.put("description", "34w 32h Levis Jeans");
+        requestBody.put("category", "Clothing");
+        requestBody.put("price", "120");
+        requestBody.put("quantity", "10");
+        requestBody.put("storeSection",  "E40");
+        requestBody.put("image", "image.png");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/products/2");
+    }
+
+    @Then("the product should be updated successfully")
+    public void theProductShouldBeUpdatedSuccessfully() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
