@@ -213,7 +213,7 @@ public class StepDefinitions {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(JWTTestKeyAdmin());
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/users", HttpMethod.GET, entity, String.class);
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/stores", HttpMethod.GET, entity, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
     }
 
