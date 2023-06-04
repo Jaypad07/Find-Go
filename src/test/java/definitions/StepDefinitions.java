@@ -221,4 +221,22 @@ public class StepDefinitions {
         Assert.assertTrue(list.size() > 0);
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
+
+    @Given("the user wants to get all products")
+    public void theUserWantsToGetAllProducts() {
+
+    }
+
+    @When("the user sends a request to get all products")
+    public void theUserSendsARequestToGetAllProducts() {
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/products", HttpMethod.GET, null, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+    }
+
+    @Then("the response should contain a list of all products")
+    public void theResponseShouldContainAListOfAllProducts() {
+        Assert.assertTrue(list.size() > 0);
+        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
 }
