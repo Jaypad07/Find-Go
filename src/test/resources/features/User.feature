@@ -25,16 +25,16 @@ Feature: User is able to view stores and products
     Then the response should return the product details
 
   Scenario: User requests to get products by category
-    Given the user wants to get products by category
+    Given a list of products is available
     When the user sends a request to get the products by category
     Then the response should contain a list of products in the specified category
 
   Scenario: User updates an existing product
-    Given the user wants to update an existing product
+    Given a list of products is available
     When the user submits the updated product details
     Then the product should be updated successfully
 
   Scenario: User deletes an existing product
-    Given the user wants to delete an existing product
+    Given a list of products is available
     When the user sends a request to delete the product
     Then the product should be deleted successfully

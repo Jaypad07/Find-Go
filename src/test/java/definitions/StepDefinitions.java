@@ -367,4 +367,17 @@ public class StepDefinitions {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("the user sends a request to get the products by category")
+    public void theUserSendsARequestToGetTheProductsByCategory() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/products/category/Clothing");
+    }
+
+    @Then("the response should contain a list of products in the specified category")
+    public void theResponseShouldContainAListOfProductsInTheSpecifiedCategory() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
