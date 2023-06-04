@@ -55,13 +55,12 @@ public class StepDefinitions {
         return response.jsonPath().getString("message");
     }
 
-
-    @Given("I am on the registration page")
-    public void iAmOnTheRegistrationPage() {
+    @Given("user is on the registration page")
+    public void userIsOnTheRegistrationPage() {
     }
 
-    @When("I enter valid registration details \\(username, email, password)")
-    public void iEnterValidRegistrationDetailsUsernameEmailPassword() throws JSONException {
+    @When("user enters valid registration details \\(username, email, password)")
+    public void userEntersValidRegistrationDetailsUsernameEmailPassword() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
         requestBody.put("username", "example34");
@@ -69,11 +68,10 @@ public class StepDefinitions {
         requestBody.put("password", "password5");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/register");
-        Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @Then("I should be successfully registered")
-    public void iShouldBeSuccessfullyRegistered() {
+    @Then("user should be successfully registered")
+    public void userShouldBeSuccessfullyRegistered() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -413,4 +411,7 @@ public class StepDefinitions {
     public void theProductShouldBeDeletedSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+
+
 }
