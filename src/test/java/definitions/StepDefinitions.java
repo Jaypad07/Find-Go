@@ -319,7 +319,7 @@ public class StepDefinitions {
     public void aStoreIsAvailable() {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
-        response = request.get(BASE_URL + port + "/api/stores/Target");
+        response = request.get(BASE_URL + port + "/api/stores/search/Best Buy");
     }
 
     @When("the user sends a request to get the store by name")
@@ -330,5 +330,12 @@ public class StepDefinitions {
     @Then("the response should return the store details")
     public void theResponseShouldReturnTheStoreDetails() {
         Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Given("the user wants to get a store by city")
+    public void theUserWantsToGetAStoreByCity() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/stores/city/Phoenix");
     }
 }
