@@ -355,7 +355,6 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-
     @When("the user sends a request to get the product by name")
     public void theUserSendsARequestToGetTheProductByName() {
         RestAssured.baseURI = BASE_URL;
