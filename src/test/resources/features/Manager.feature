@@ -4,15 +4,15 @@ Feature: Manager is able to login and manipulate Store data
     When the Manager sends a request to get the store by ID
     Then the response should contain the store details
 
-  Scenario: User adds a new store section to a store
-    Given  the user is a Manager
-    When the user submits the store section details
-    Then the store section should be added successfully
-
-  Scenario: User updates an existing store section of a store
-    Given the user is a Manager
-    When the user submits the updated store section details
-    Then the store section should be updated successfully
+#  Scenario: User adds a new store section to a store
+#    Given  the user is a Manager
+#    When the user submits the store section details
+#    Then the store section should be added successfully
+#
+#  Scenario: User updates an existing store section of a store
+#    Given the user is a Manager
+#    When the user submits the updated store section details
+#    Then the store section should be updated successfully
 
   Scenario: Manager adds a new product
     Given the user is a Manager

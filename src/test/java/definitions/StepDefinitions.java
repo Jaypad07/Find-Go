@@ -215,6 +215,27 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    @When("the manager submits the product details")
+    public void theManagerSubmitsTheProductDetails() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        request.header("Authorization", "Bearer "+ token);
+        requestBody.put("productName", "Samsung Galaxy");
+        requestBody.put("description", "Electronics");
+        requestBody.put("price", "1000");
+        requestBody.put("storeId", "1");
+        requestBody.put("image", "image.png");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/auth/products");
+    }
+
+    @Then("the product should be added successfully")
+    public void theProductShouldBeAddedSuccessfully() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+
 
 
 
