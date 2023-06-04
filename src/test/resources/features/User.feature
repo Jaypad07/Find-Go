@@ -22,7 +22,7 @@ Feature: User is able to view stores and products
   Scenario: User requests to get a product by name
     Given a list of products is available
     When the user sends a request to get the product by name
-    Then the response should contain the product details
+    Then the response should return the product details
 
   Scenario: User requests to get products by category
     Given the user wants to get products by category

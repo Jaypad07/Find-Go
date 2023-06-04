@@ -359,6 +359,12 @@ public class StepDefinitions {
     public void theUserSendsARequestToGetTheProductByName() {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
-        response = request.get(BASE_URL + port + "/api/products/search/Samsung Galaxy");
+        response = request.get(BASE_URL + port + "/api/products/search/jeans");
+    }
+
+    @Then("the response should return the product details")
+    public void theResponseShouldReturnTheProductDetails() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
