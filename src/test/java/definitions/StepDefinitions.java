@@ -180,8 +180,9 @@ public class StepDefinitions {
         requestBody.put("storeName", "Circuit City");
         requestBody.put("description", "Circuit City");
         requestBody.put("city", "Cerritos");
-        requestBody.put("state", "Manager");
+        requestBody.put("map", "floorPlan.png");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/stores");
+        System.out.println(response.getBody().asString());
     }
 }

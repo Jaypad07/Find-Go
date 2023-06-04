@@ -49,9 +49,9 @@ public class StoreController {
         return storeService.findStoreByName(storeName);
     }
 
-    @GetMapping(path = "/stores/city/{location}")
-    public Store getStoreByLocation(@PathVariable("location") String location) {
-        return storeService.findStoreByLocation(location);
+    @GetMapping(path = "/stores/city/{city}")
+    public Store getStoreByCity(@PathVariable("city") String city) {
+        return storeService.findStoreByCity(city);
     }
 
     @PutMapping(path = "auth/stores/{storeId}")

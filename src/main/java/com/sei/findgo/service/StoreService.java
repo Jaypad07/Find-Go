@@ -81,8 +81,8 @@ public class StoreService {
         } else throw new InformationNotFoundException("The store you are looking for does not exist");
     }
 
-    public Store findStoreByLocation(String location) {
-        Optional<Store> store = storeRepository.findStoreByLocation(location);
+    public Store findStoreByCity(String City) {
+        Optional<Store> store = storeRepository.findStoreByCity(City);
         if (store.isPresent()) {
             return store.get();
         } else throw new InformationNotFoundException("The store you are looking for does not exist");
