@@ -1,6 +1,7 @@
 package definitions;
 
 import com.sei.findgo.FindGoApplication;
+import com.sei.findgo.models.Product;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,6 +10,7 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.assertj.core.util.Arrays;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -331,21 +333,32 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @Given("the user wants to get all products")
-    public void theUserWantsToGetAllProducts() {
-
+    @Given("a list of products is available")
+    public void aListOfProductsIsAvailable() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/products/");
+        Assert.assertNotNull(String.valueOf(response));
     }
 
     @When("the user sends a request to get all products")
     public void theUserSendsARequestToGetAllProducts() {
-        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/products", HttpMethod.GET, null, String.class);
-        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/products");
+        list = response.jsonPath().getList("$");
+        System.out.println(list);
     }
 
     @Then("the response should contain a list of all products")
     public void theResponseShouldContainAListOfAllProducts() {
         Assert.assertTrue(list.size() > 0);
-        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
+//    HttpHeaders headers = new HttpHeaders();
+//        headers.setBearerAuth(JWTTestKeyAdmin());
+//    HttpEntity<String> entity = new HttpEntity<>(null, headers);
+//    responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
+//    list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
 
 }

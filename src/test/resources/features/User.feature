@@ -15,7 +15,7 @@ Feature: User is able to view stores and products
     Then the response should contain the store information
 
   Scenario: User requests to get all products
-    Given the user wants to get all products
+    Given a list of products is available
     When the user sends a request to get all products
     Then the response should contain a list of all products
 
