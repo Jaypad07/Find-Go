@@ -151,7 +151,7 @@ public class StepDefinitions {
         requestBody.put("password", "password35");
         requestBody.put("role", "Manager");
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/users/10");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/users/1");
         System.out.println(response.getBody().prettyPrint());
         System.out.println(response.prettyPeek());
     }
