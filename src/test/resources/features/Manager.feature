@@ -1,7 +1,4 @@
 Feature: Manager is able to login and manipulate Store data
-  Scenario: Manager logins in and requests to get all stores
-    Given Manager is logged in
-
   Scenario: Manager wants to get a store by ID
     Given the user is a Manager
     When the Manager sends a request to get the store by ID
