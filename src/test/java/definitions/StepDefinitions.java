@@ -152,12 +152,25 @@ public class StepDefinitions {
         requestBody.put("role", "Manager");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/users/1");
-        System.out.println(response.getBody().prettyPrint());
-        System.out.println(response.prettyPeek());
+
     }
 
     @Then("the user should be successfully updated")
     public void theUserShouldBeSuccessfullyUpdated() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @When("I delete a user")
+    public void iDeleteAUser() {
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ token);
+        response = request.delete(BASE_URL + port + "/api/auth/users/10");
+        System.out.println(response.prettyPeek());
+    }
+
+    @Then("the user should be successfully deleted")
+    public void theUserShouldBeSuccessfullyDeleted() {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }

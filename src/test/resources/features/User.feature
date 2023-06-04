@@ -1,4 +1,4 @@
-Feature: Admin is able to Login and
+Feature: Admin is able to register, login, and manipulate User data
   Scenario: User Registration
     Given I am on the registration page
     When I enter valid registration details (username, email, password)
@@ -23,3 +23,8 @@ Scenario: User Login
     Given user is an Admin
     When I update a users details
     Then the user should be successfully updated
+
+  Scenario: Delete User
+    Given user is an Admin
+    When I delete a user
+    Then the user should be successfully deleted
