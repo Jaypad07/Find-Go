@@ -195,13 +195,19 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @Given("Manager is logged in and a list of store is available")
-    public void managerIsLoggedInAndAListOfStoreIsAvailable() throws JSONException {
+    @Given("the user is a Manager")
+    public void theUserIsAManager() throws JSONException {
         RequestSpecification request = RestAssured.given();
         token = JWTTestKeyManager();
         request.header("Authorization", "Bearer " + token);
     }
 
+    @When("the Manager sends a request to get the store by ID")
+    public void theManagerSendsARequestToGetTheStoreByID() {
+        RestAssured.baseURI = BASE_URL + port + "/api/auth/stores/1";
+        RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
+        response = request.get();
+    }
 
 
 
@@ -239,4 +245,7 @@ public class StepDefinitions {
         Assert.assertTrue(list.size() > 0);
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
+
+
 }

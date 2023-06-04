@@ -33,3 +33,14 @@ Scenario: User Login
     Given user is an Admin
     When user creates a store
     Then the store should successfully be added
+
+  Scenario: Admin updates an existing store
+    Given user is an Admin
+    When the user submits the updated store details
+    Then the store should be updated successfully
+
+  Scenario: Admin deletes an existing store
+    Given user is an Admin
+    When the user sends a request to delete the store
+    Then the store should be deleted successfully
+

@@ -40,12 +40,12 @@ public class StoreController {
     }
 
     @GetMapping(path = "/stores/storeId/{storeId}")
-    public Store getStore(@PathVariable("storeId") int storeId) {
+    public Store getStoreById(@PathVariable("storeId") int storeId) {
         return storeService.findStoreById(storeId);
     }
 
     @GetMapping(path = "/stores/search/{storeName}")
-    public Store getStore(@PathVariable("storeName") String storeName) {
+    public Store getStoreByName(@PathVariable("storeName") String storeName) {
         return storeService.findStoreByName(storeName);
     }
 
