@@ -120,13 +120,13 @@ public class StepDefinitions {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
-        Assert.assertEquals(200, response.getStatusCode());
+
     }
 
     @Then("the response should contain a list of all users")
     public void theResponseShouldContainAListOfAllUsers() {
-        Assert.assertNotNull(list);
         Assert.assertTrue(list.size() > 0);
+        Assert.assertEquals(200, response.getStatusCode());
     }
 
     @Given("user is an Admin")
@@ -201,14 +201,25 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @Given("Manager is logged in")
-    public void managerIsLoggedIn() throws JSONException {
+    @Given("Manager is logged in and a list of store is available")
+    public void managerIsLoggedInAndAListOfStoreIsAvailable() throws JSONException {
         RequestSpecification request = RestAssured.given();
         token = JWTTestKeyManager();
         request.header("Authorization", "Bearer " + token);
     }
 
+    @When("a manager searches for a list of stores")
+    public void aManagerSearchesForAListOfStores() throws JSONException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(JWTTestKeyAdmin());
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/users", HttpMethod.GET, entity, String.class);
+        list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
+    }
 
-
-
+    @Then("the manager sees a list of stores")
+    public void theManagerSeesAListOfStores() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
