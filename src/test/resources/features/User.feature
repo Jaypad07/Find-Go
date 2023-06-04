@@ -1,4 +1,4 @@
-Feature: User able to register & login
+Feature: Admin is able to Login and
   Scenario: User Registration
     Given I am on the registration page
     When I enter valid registration details (username, email, password)
@@ -19,3 +19,7 @@ Scenario: User Login
     When I search for a user by Id
     Then the response should contain the user details
 
+  Scenario: Update User
+    Given user is an Admin
+    When I update a users details
+    Then the user should be successfully updated

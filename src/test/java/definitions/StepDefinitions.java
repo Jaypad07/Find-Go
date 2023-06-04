@@ -128,16 +128,36 @@ public class StepDefinitions {
         request.header("Authorization", "Bearer " + token);
     }
 
-
     @When("I search for a user by Id")
     public void iSearchForAUserById() throws JSONException {
-        RestAssured.baseURI = BASE_URL + port + "/api/auth/users/10";
+        RestAssured.baseURI = BASE_URL + port + "/api/auth/users/1";
         RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
         response = request.get();
     }
 
     @Then("the response should contain the user details")
     public void theResponseShouldContainTheUserDetails() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @When("I update a users details")
+    public void iUpdateAUsersDetails() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        request.header("Authorization", "Bearer "+ token);
+        requestBody.put("userName", "Tim");
+        requestBody.put("email", "Rodriguez@example.com");
+        requestBody.put("password", "password35");
+        requestBody.put("role", "Manager");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/users/10");
+        System.out.println(response.getBody().prettyPrint());
+        System.out.println(response.prettyPeek());
+    }
+
+    @Then("the user should be successfully updated")
+    public void theUserShouldBeSuccessfullyUpdated() {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
