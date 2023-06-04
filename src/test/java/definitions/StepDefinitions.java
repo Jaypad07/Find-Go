@@ -237,7 +237,7 @@ public class StepDefinitions {
 
     @When("the Manager sends a request to get the product by ID")
     public void theManagerSendsARequestToGetTheProductByID() {
-        RestAssured.baseURI = BASE_URL + port + "/api/auth/products/productId/1";
+        RestAssured.baseURI = BASE_URL + port + "/api/auth/products/1";
         RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
         response = request.get();
         Assert.assertNotNull(String.valueOf(response));
