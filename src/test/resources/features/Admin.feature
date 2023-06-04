@@ -1,4 +1,4 @@
-Feature: Admin is able to register, login, and manipulate User data
+Feature: Admin is able to register, login, and manipulate User & Store data
   Scenario: User Registration
     Given I am on the registration page
     When I enter valid registration details (username, email, password)
@@ -41,6 +41,5 @@ Scenario: User Login
 
   Scenario: Admin deletes an existing store
     Given user is an Admin
-    When the user sends a request to delete the store
+    When the owner sends a request to delete the store
     Then the store should be deleted successfully
-

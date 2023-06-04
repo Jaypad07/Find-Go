@@ -214,6 +214,18 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    @When("the owner sends a request to delete the store")
+    public void theOwnerSendsARequestToDeleteTheStore() {
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ token);
+        response = request.delete(BASE_URL + port + "/api/auth/stores/2");
+    }
+
+    @Then("the store should be deleted successfully")
+    public void theStoreShouldBeDeletedSuccessfully() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
     @Given("the user is a Manager")
     public void theUserIsAManager() throws JSONException {
         RequestSpecification request = RestAssured.given();
@@ -302,6 +314,7 @@ public class StepDefinitions {
         Assert.assertTrue(list.size() > 0);
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
+
 
 
 
