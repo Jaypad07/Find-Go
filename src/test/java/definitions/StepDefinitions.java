@@ -235,10 +235,19 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    @When("the Manager sends a request to get the product by ID")
+    public void theManagerSendsARequestToGetTheProductByID() {
+        RestAssured.baseURI = BASE_URL + port + "/api/auth/products/productId/1";
+        RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
+        response = request.get();
+        Assert.assertNotNull(String.valueOf(response));
+    }
 
-
-
-
+    @Then("the response should contain the product details")
+    public void theResponseShouldContainTheProductDetails() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 
     @Given("the user wants to find all stores")
     public void theUserWantsToFindAllStores() {
