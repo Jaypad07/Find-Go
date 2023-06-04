@@ -402,4 +402,18 @@ public class StepDefinitions {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("the user sends a request to delete the product")
+    public void theUserSendsARequestToDeleteTheProduct() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ JWTTestKeyManager());
+        response = request.delete(BASE_URL + port + "/api/products/6");
+    }
+
+    @Then("the product should be deleted successfully")
+    public void theProductShouldBeDeletedSuccessfully() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
