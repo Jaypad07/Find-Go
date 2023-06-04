@@ -114,6 +114,6 @@ public class StepDefinitions {
 
     @Then("the response should contain a list of all users")
     public void theResponseShouldContainAListOfAllUsers() {
-        Assert.assertEquals(300, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
