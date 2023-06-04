@@ -165,8 +165,7 @@ public class StepDefinitions {
     public void iDeleteAUser() {
         RequestSpecification request = RestAssured.given();
         request.header("Authorization", "Bearer "+ token);
-        response = request.delete(BASE_URL + port + "/api/auth/users/10");
-        System.out.println(response.prettyPeek());
+        response = request.delete(BASE_URL + port + "/api/auth/users/1");
     }
 
     @Then("the user should be successfully deleted")
