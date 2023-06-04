@@ -195,6 +195,20 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    @When("the user submits the updated store details")
+    public void theUserSubmitsTheUpdatedStoreDetails() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        request.header("Authorization", "Bearer "+ token);
+        requestBody.put("storeName", "Circuit City");
+        requestBody.put("description", "Electronics Store");
+        requestBody.put("city", "Cerritos");
+        requestBody.put("map", "floorPlan.png");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/stores/1");
+        Assert.assertNotNull(String.valueOf(response));
+    }
+
     @Given("the user is a Manager")
     public void theUserIsAManager() throws JSONException {
         RequestSpecification request = RestAssured.given();
