@@ -209,6 +209,11 @@ public class StepDefinitions {
         Assert.assertNotNull(String.valueOf(response));
     }
 
+    @Then("the store should be updated successfully")
+    public void theStoreShouldBeUpdatedSuccessfully() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
     @Given("the user is a Manager")
     public void theUserIsAManager() throws JSONException {
         RequestSpecification request = RestAssured.given();

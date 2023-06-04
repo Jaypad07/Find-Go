@@ -37,7 +37,7 @@ Scenario: User Login
   Scenario: Admin updates an existing store
     Given user is an Admin
     When the user submits the updated store details
-#    Then the store should be updated successfully
+    Then the store should be updated successfully
 
   Scenario: Admin deletes an existing store
     Given user is an Admin
