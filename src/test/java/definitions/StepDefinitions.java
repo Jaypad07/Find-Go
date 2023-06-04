@@ -50,6 +50,16 @@ public class StepDefinitions {
         return response.jsonPath().getString("message");
     }
 
+    public String JWTTestKeyManager() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", "marie@example.com");
+        jsonObject.put("password", "password4");
+        request.header("Content-Type", "application/json");
+        response = request.body(jsonObject.toString()).post(BASE_URL + port + "/api/users/login");
+        return response.jsonPath().getString("message");
+    }
+
 
     @Given("I am on the registration page")
     public void iAmOnTheRegistrationPage() throws JSONException {
@@ -172,25 +182,33 @@ public class StepDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-
     @When("user creates a store")
     public void userCreatesAStore() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
         request.header("Authorization", "Bearer "+ token);
         requestBody.put("storeName", "Circuit City");
-        requestBody.put("description", "Circuit City");
+        requestBody.put("description", "Electronics Store");
         requestBody.put("city", "Cerritos");
         requestBody.put("map", "floorPlan.png");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/auth/stores");
-        System.out.println(response.peek().asString());
     }
-
 
     @Then("the store should successfully be added")
     public void theStoreShouldSuccessfullyBeAdded() {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @Given("Manager is logged in")
+    public void managerIsLoggedIn() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        token = JWTTestKeyManager();
+        request.header("Authorization", "Bearer " + token);
+    }
+
+
+
+
 }

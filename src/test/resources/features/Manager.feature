@@ -1,5 +1,8 @@
-Feature: Manager is able to register, login, and manipulate Store data
-  Scenario: Manager wants to add a store
-    Given I am on the registration page
-    When I enter valid registration details (username, email, password)
-    Then I should be successfully registered
+Feature: Manager is able to login and manipulate Store data
+  Scenario: Manager login
+    Given Manager is logged in
+#    When I enter valid registration details (username, email, password)
+#    Then I should be successfully registered
+
+
+
