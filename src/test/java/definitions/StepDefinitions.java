@@ -385,7 +385,7 @@ public class StepDefinitions {
     public void theUserSubmitsTheUpdatedProductDetails() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer "+ JWTTestKeyManager());
         requestBody.put("productName", "Levis Jeans");
         requestBody.put("description", "34w 32h Levis Jeans");
         requestBody.put("category", "Clothing");
