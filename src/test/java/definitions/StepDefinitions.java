@@ -347,7 +347,6 @@ public class StepDefinitions {
         RequestSpecification request = RestAssured.given();
         response = request.get(BASE_URL + port + "/api/products");
         list = response.jsonPath().getList("$");
-        System.out.println(list);
     }
 
     @Then("the response should contain a list of all products")
@@ -355,10 +354,12 @@ public class StepDefinitions {
         Assert.assertTrue(list.size() > 0);
         Assert.assertEquals(200, response.getStatusCode());
     }
-//    HttpHeaders headers = new HttpHeaders();
-//        headers.setBearerAuth(JWTTestKeyAdmin());
-//    HttpEntity<String> entity = new HttpEntity<>(null, headers);
-//    responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
-//    list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
 
+
+    @When("the user sends a request to get the product by name")
+    public void theUserSendsARequestToGetTheProductByName() {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get(BASE_URL + port + "/api/products/search/Samsung Galaxy");
+    }
 }
