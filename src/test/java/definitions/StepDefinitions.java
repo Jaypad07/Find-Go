@@ -159,6 +159,6 @@ public class StepDefinitions {
     @Then("the user should be successfully updated")
     public void theUserShouldBeSuccessfullyUpdated() {
         Assert.assertNotNull(String.valueOf(response));
-        Assert.assertEquals(300, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
