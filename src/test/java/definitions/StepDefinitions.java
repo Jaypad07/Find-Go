@@ -1,5 +1,6 @@
 package definitions;
 
+import antlr.Token;
 import com.sei.findgo.FindGoApplication;
 import com.sei.findgo.models.User;
 import io.cucumber.java.en.Given;
@@ -39,7 +40,7 @@ public class StepDefinitions {
 
     User user = new User("John",  "Doe@example.com", "password", "User");
 
-    public String JWTTestKey() throws JSONException {
+    public String JWTTestKeyAdmin() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("email", "jay@example.com");
@@ -94,7 +95,7 @@ public class StepDefinitions {
     @Given("there are multiple users in the system")
     public void thereAreMultipleUsersInTheSystem() throws JSONException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(JWTTestKey());
+        headers.setBearerAuth(JWTTestKeyAdmin());
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
@@ -105,7 +106,7 @@ public class StepDefinitions {
     @When("the client requests to get all users")
     public void theClientRequestsToGetAllUsers() throws JSONException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(JWTTestKey());
+        headers.setBearerAuth(JWTTestKeyAdmin());
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
@@ -114,6 +115,14 @@ public class StepDefinitions {
 
     @Then("the response should contain a list of all users")
     public void theResponseShouldContainAListOfAllUsers() {
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertNotNull(list);
+        Assert.assertTrue(list.size() > 0);
+    }
+
+    @Given("user is an Admin")
+    public void userIsAnAdmin() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        String token = JWTTestKeyAdmin();
+        request.header("Authorization", "Bearer " + token);
     }
 }
