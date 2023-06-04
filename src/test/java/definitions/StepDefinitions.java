@@ -177,6 +177,7 @@ public class StepDefinitions {
     public void userCreatesAStore() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
+        request.header("Authorization", "Bearer "+ token);
         requestBody.put("storeName", "Circuit City");
         requestBody.put("description", "Circuit City");
         requestBody.put("city", "Cerritos");
