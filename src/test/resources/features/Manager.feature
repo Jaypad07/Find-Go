@@ -1,5 +1,4 @@
-Feature: Manager is able to login and manipulate Store data
-
+#Feature: Manager is able to login and manipulate Store data
 #  Scenario: Manager logins in and requests to get all stores
 #    Given Manager is logged in
 #

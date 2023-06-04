@@ -1,8 +1,6 @@
 package definitions;
 
-import antlr.Token;
 import com.sei.findgo.FindGoApplication;
-import com.sei.findgo.models.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,10 +14,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -62,7 +57,7 @@ public class StepDefinitions {
 
 
     @Given("I am on the registration page")
-    public void iAmOnTheRegistrationPage() throws JSONException {
+    public void iAmOnTheRegistrationPage() {
     }
 
     @When("I enter valid registration details \\(username, email, password)")
@@ -78,7 +73,7 @@ public class StepDefinitions {
     }
 
     @Then("I should be successfully registered")
-    public void iShouldBeSuccessfullyRegistered() throws JSONException {
+    public void iShouldBeSuccessfullyRegistered() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -120,7 +115,6 @@ public class StepDefinitions {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/auth/users", HttpMethod.GET, entity, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
-
     }
 
     @Then("the response should contain a list of all users")
@@ -137,7 +131,7 @@ public class StepDefinitions {
     }
 
     @When("I search for a user by Id")
-    public void iSearchForAUserById() throws JSONException {
+    public void iSearchForAUserById() {
         RestAssured.baseURI = BASE_URL + port + "/api/auth/users/1";
         RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
         response = request.get();
@@ -210,6 +204,7 @@ public class StepDefinitions {
 
 
 
+
     @Given("the user wants to find all stores")
     public void theUserWantsToFindAllStores() {
     }
@@ -217,15 +212,13 @@ public class StepDefinitions {
 
     @When("the user sends a request to get all stores")
     public void theUserSendsARequestToGetAllStores() {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/stores", HttpMethod.GET, entity, String.class);
+        responseEntity = new RestTemplate().exchange(BASE_URL + port + "/api/stores", HttpMethod.GET, null, String.class);
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
     }
 
     @Then("the response should contain a list of all stores")
     public void theResponseShouldContainAListOfAllStores() {
-        Assert.assertNotNull(String.valueOf(response));
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertTrue(list.size() > 0);
+        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 }
