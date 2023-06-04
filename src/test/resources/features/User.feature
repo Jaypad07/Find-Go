@@ -14,8 +14,8 @@ Scenario: User Login
     When the client requests to get all users
     Then the response should contain a list of all users
 
-#  Scenario: Get User by ID
-#    Given a user with ID {userId}
-#    When the client requests to get the user by ID {userId}
-#    Then the response should contain the user details
+  Scenario: Get User by ID
+    Given user is an Admin
+    When I search for a user by Id
+    Then the response should contain the user details
 

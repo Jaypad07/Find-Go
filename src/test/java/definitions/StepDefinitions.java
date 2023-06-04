@@ -35,6 +35,8 @@ public class StepDefinitions {
 
     private static Response response;
 
+    private String token;
+
     private static ResponseEntity<String> responseEntity;
     private static List<?> list;
 
@@ -122,7 +124,21 @@ public class StepDefinitions {
     @Given("user is an Admin")
     public void userIsAnAdmin() throws JSONException {
         RequestSpecification request = RestAssured.given();
-        String token = JWTTestKeyAdmin();
+        token = JWTTestKeyAdmin();
         request.header("Authorization", "Bearer " + token);
+    }
+
+
+    @When("I search for a user by Id")
+    public void iSearchForAUserById() throws JSONException {
+        RestAssured.baseURI = BASE_URL + port + "/api/auth/users/10";
+        RequestSpecification request = RestAssured.given().header("Authorization", "Bearer " + token);
+        response = request.get();
+    }
+
+    @Then("the response should contain the user details")
+    public void theResponseShouldContainTheUserDetails() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
