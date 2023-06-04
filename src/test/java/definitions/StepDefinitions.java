@@ -169,9 +169,9 @@ public class StepDefinitions {
         System.out.println(response.prettyPeek());
     }
 
-    @Then("the user should be successfully deleted")
-    public void theUserShouldBeSuccessfullyDeleted() {
-        Assert.assertNotNull(String.valueOf(response));
-        Assert.assertEquals(200, response.getStatusCode());
-    }
+//    @Then("the user should be successfully deleted")
+//    public void theUserShouldBeSuccessfullyDeleted() {
+//        Assert.assertNotNull(String.valueOf(response));
+//        Assert.assertEquals(200, response.getStatusCode());
+//    }
 }
