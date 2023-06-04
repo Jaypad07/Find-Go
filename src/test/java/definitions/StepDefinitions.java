@@ -111,4 +111,9 @@ public class StepDefinitions {
         list = JsonPath.from(String.valueOf(responseEntity.getBody())).get();
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @Then("the response should contain a list of all users")
+    public void theResponseShouldContainAListOfAllUsers() {
+        Assert.assertEquals(300, response.getStatusCode());
+    }
 }
