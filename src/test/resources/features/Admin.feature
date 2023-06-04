@@ -32,4 +32,4 @@ Scenario: User Login
   Scenario: Add store to database
     Given user is an Admin
     When user creates a store
-#    Then the store should successfully be added
+    Then the store should successfully be added

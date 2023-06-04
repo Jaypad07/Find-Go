@@ -182,7 +182,14 @@ public class StepDefinitions {
         requestBody.put("city", "Cerritos");
         requestBody.put("map", "floorPlan.png");
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/stores");
-        System.out.println(response.getBody().asString());
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/auth/stores");
+        System.out.println(response.peek().asString());
+    }
+
+
+    @Then("the store should successfully be added")
+    public void theStoreShouldSuccessfullyBeAdded() {
+        Assert.assertNotNull(String.valueOf(response));
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
