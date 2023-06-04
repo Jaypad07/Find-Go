@@ -62,11 +62,11 @@ public class DataLoader implements CommandLineRunner {
         User user5 = new User("Jay", "jay@example.com", "password5", "Admin");
 
 
-        Store Target = new Store("Target", "123 Main Street", "Department Store", "mapImage");
-        Store BestBuy= new Store("Best Buy", "456 Elm Avenue", "Electronics", "mapImage");
-        Store Walmart = new Store("Walmart", "789 Oak Boulevard", "Retail Store", "mapImage");
-        Store HomeDepot = new Store("Home Depot", "321 Maple Lane", "Home Improvement", "mapImage");
-        Store CVS = new Store("CVS", "987 Pine Road", "Health", "mapImage");
+        Store Target = new Store("Target", "Phoenix", "Department Store", "mapImage");
+        Store BestBuy= new Store("Best Buy", "Chicago", "Electronics", "mapImage");
+        Store Walmart = new Store("Walmart", "Los Angeles", "Retail Store", "mapImage");
+        Store HomeDepot = new Store("Home Depot", "Carson", "Home Improvement", "mapImage");
+        Store CVS = new Store("CVS", "Scottsdale", "Health", "mapImage");
 
         // Saving created stores to the database
         storeRepository.save(Target);

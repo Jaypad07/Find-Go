@@ -40,8 +40,6 @@ public class StepDefinitions {
     private static ResponseEntity<String> responseEntity;
     private static List<?> list;
 
-    User user = new User("John",  "Doe@example.com", "password", "User");
-
     public String JWTTestKeyAdmin() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject jsonObject = new JSONObject();
@@ -172,5 +170,18 @@ public class StepDefinitions {
     public void theUserShouldBeSuccessfullyDeleted() {
         Assert.assertNotNull(String.valueOf(response));
         Assert.assertEquals(200, response.getStatusCode());
+    }
+
+
+    @When("user creates a store")
+    public void userCreatesAStore() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("storeName", "Circuit City");
+        requestBody.put("description", "Circuit City");
+        requestBody.put("city", "Cerritos");
+        requestBody.put("state", "Manager");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/stores");
     }
 }

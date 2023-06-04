@@ -95,7 +95,7 @@ public class StoreService {
             if (store.isPresent()) {
                 Store existingStore = store.get();
                 existingStore.setStoreName(storeObject.getStoreName());
-                existingStore.setLocation(storeObject.getLocation());
+                existingStore.setCity(storeObject.getCity());
                 existingStore.setMap(storeObject.getMap());
                 storeRepository.save(existingStore);
                 return existingStore;

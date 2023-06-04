@@ -22,7 +22,7 @@ public class Store {
     private String description;
 
     @Column
-    private String location;
+    private String city;
 
     @Column
     private String map;
@@ -39,10 +39,10 @@ public class Store {
     public Store() {
     }
 
-    public Store(String storeName, String location, String description, String map) {
+    public Store(String storeName, String city, String description, String map) {
         this.storeName = storeName;
         this.description = description;
-        this.location = location;
+        this.city = city;
         this.map = map;
     }
 
@@ -62,12 +62,12 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCity() {
+        return city;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCity(String location) {
+        this.city = location;
     }
 
     public String getMap() {
@@ -108,7 +108,7 @@ public class Store {
                 "id=" + id +
                 ", storeName='" + storeName + '\'' +
                 ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
+                ", city='" + city + '\'' +
                 ", map='" + map + '\'' +
                 ", userList=" + userList +
                 ", storeSectionsList=" + storeSectionsList +

@@ -28,3 +28,8 @@ Scenario: User Login
     Given user is an Admin
     When I delete a user
     Then the user should be successfully deleted
+
+  Scenario: Add store to database
+    Given user is an Admin
+    When user creates a store
+#    Then the store should successfully be added
