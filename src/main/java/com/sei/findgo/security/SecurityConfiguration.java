@@ -19,34 +19,65 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.context.WebApplicationContext;
 
+
+/**
+ * Configuration class for security settings.
+ *
+ * This class configures the security settings for the application.
+ */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
     private MyUserDetailsService myUserDetailsService;
 
+    /**
+     * Sets the MyUserDetailsService dependency.
+     *
+     * @param myUserDetailsService the MyUserDetailsService instance to be set
+     */
     @Autowired
-    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService){ this.myUserDetailsService = myUserDetailsService;}
+    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
+        this.myUserDetailsService = myUserDetailsService;
+    }
 
-
+    /**
+     * Creates and returns an instance of JwtRequestFilter.
+     *
+     * @return the JwtRequestFilter instance
+     */
     @Bean
-    public JwtRequestFilter authJwtRequestFilter(){return new JwtRequestFilter();}
+    public JwtRequestFilter authJwtRequestFilter() {
+        return new JwtRequestFilter();
+    }
 
-
+    /**
+     * Creates and returns an instance of BCryptPasswordEncoder for password encoding.
+     *
+     * @return the BCryptPasswordEncoder instance
+     */
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
+    /**
+     * Configures the security filter chain.
+     *
+     * @param http the HttpSecurity object to configure the security
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeRequests().antMatchers(
-                HttpMethod.POST,
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers(
+                        HttpMethod.POST,
                         "/api/users/register",
                         "/api/users/login"
                 ).permitAll()
-                .antMatchers(HttpMethod.GET,
+                .antMatchers(
+                        HttpMethod.GET,
                         "/api/products",
                         "/api/products/search/{productName}",
                         "/api/products/search/category/{categoryName}",
@@ -54,7 +85,6 @@ public class SecurityConfiguration {
                         "/api/stores/storeId/{storeId}",
                         "/api/stores/search/{storeName}",
                         "/api/stores/city/{location}"
-
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
@@ -64,12 +94,23 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * Creates and returns an instance of AuthenticationManager.
+     *
+     * @param authConfig the AuthenticationConfiguration object
+     * @return the AuthenticationManager instance
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
-
+    /**
+     * Creates and returns an instance of DaoAuthenticationProvider.
+     *
+     * @return the DaoAuthenticationProvider instance
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -78,14 +119,22 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
-
+    /**
+     * Creates and returns an instance of MyUserDetails scoped bean.
+     *
+     * @return the MyUserDetails scoped bean instance
+     */
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public MyUserDetails myUserDetails() {
-        return (MyUserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
+        return (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
+    /**
+     * Configures the web security to ignore the H2 Console.
+     *
+     * @return the WebSecurityCustomizer instance
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/h2-console/**");
