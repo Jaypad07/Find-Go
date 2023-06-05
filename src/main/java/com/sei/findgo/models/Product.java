@@ -22,7 +22,7 @@ public class Product {
     private String category;
 
     @Column
-    private int price; //change to double
+    private double price;
 
     @Column
     private int quantity;
@@ -35,7 +35,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, String description, String category, int price, int quantity) {
+    public Product(String productName, String description, String category, double price, int quantity) {
         this.productName = productName;
         this.description = description;
         this.category = category;
@@ -75,11 +75,11 @@ public class Product {
         this.category = category;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

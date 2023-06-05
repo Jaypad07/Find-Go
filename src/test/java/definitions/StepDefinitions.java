@@ -262,7 +262,7 @@ public class StepDefinitions {
         request.header("Authorization", "Bearer " + token);
         requestBody.put("productName", "Samsung Galaxy");
         requestBody.put("description", "Electronics");
-        requestBody.put("price", "1000");
+        requestBody.put("price", "1000.00");
         requestBody.put("storeId", "1");
         requestBody.put("image", "image.png");
         request.header("Content-Type", "application/json");
@@ -396,7 +396,7 @@ public class StepDefinitions {
         requestBody.put("productName", "Levis Jeans");
         requestBody.put("description", "34w 32h Levis Jeans");
         requestBody.put("category", "Clothing");
-        requestBody.put("price", "120");
+        requestBody.put("price", "120.00");
         requestBody.put("quantity", "10");
         requestBody.put("storeSection", "E40");
         requestBody.put("image", "image.png");
