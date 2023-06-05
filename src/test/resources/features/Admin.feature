@@ -1,11 +1,11 @@
 Feature: Admin is able to register, login, and manipulate User & Store data
   Scenario: User Registration
-    Given user is on the registration page
+    Given email is not registered
     When user enters valid registration details (username, email, password)
     Then user should be successfully registered
 
 Scenario: User Login
-  Given I am on the login page
+  Given User is Admin or Manager
   When I enter valid login credentials (username, password)
   Then I should be logged in successfully
 
