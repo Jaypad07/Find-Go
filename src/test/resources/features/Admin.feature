@@ -1,6 +1,6 @@
 Feature: Admin is able to register, login, and manipulate User & Store data
   Scenario: User Registration
-    Given user is on the registration page
+    Given email is not registered
     When user enters valid registration details (username, email, password)
     Then user should be successfully registered
 

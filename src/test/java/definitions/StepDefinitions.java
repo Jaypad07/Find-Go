@@ -55,17 +55,28 @@ public class StepDefinitions {
         return response.jsonPath().getString("message");
     }
 
-    @Given("user is on the registration page")
-    public void userIsOnTheRegistrationPage() {
+    @Given("email is not registered")
+    public void emailIsNotRegistered() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", "JayCee");
+        requestBody.put("email", "jay@example.com");
+        requestBody.put("password", "password5");
+        requestBody.put("role", "User");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/register");
+        Assert.assertEquals(409, response.getStatusCode());
     }
+
 
     @When("user enters valid registration details \\(username, email, password)")
     public void userEntersValidRegistrationDetailsUsernameEmailPassword() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        requestBody.put("username", "example34");
-        requestBody.put("email", "example34@example.com");
+        requestBody.put("username", "Carter");
+        requestBody.put("email", "carter@example.com");
         requestBody.put("password", "password5");
+        requestBody.put("role", "User");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/register");
     }
@@ -145,7 +156,7 @@ public class StepDefinitions {
     public void iUpdateAUsersDetails() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer " + token);
         requestBody.put("userName", "Tim");
         requestBody.put("email", "Rodriguez@example.com");
         requestBody.put("password", "password35");
@@ -164,7 +175,7 @@ public class StepDefinitions {
     @When("I delete a user")
     public void iDeleteAUser() {
         RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer " + token);
         response = request.delete(BASE_URL + port + "/api/auth/users/1");
     }
 
@@ -178,7 +189,7 @@ public class StepDefinitions {
     public void userCreatesAStore() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer " + token);
         requestBody.put("storeName", "Circuit City");
         requestBody.put("description", "Electronics Store");
         requestBody.put("city", "Cerritos");
@@ -197,7 +208,7 @@ public class StepDefinitions {
     public void theUserSubmitsTheUpdatedStoreDetails() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer " + token);
         requestBody.put("storeName", "Circuit City");
         requestBody.put("description", "Electronics Store");
         requestBody.put("city", "Cerritos");
@@ -215,7 +226,7 @@ public class StepDefinitions {
     @When("the owner sends a request to delete the store")
     public void theOwnerSendsARequestToDeleteTheStore() {
         RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer " + token);
         response = request.delete(BASE_URL + port + "/api/auth/stores/2");
     }
 
@@ -248,7 +259,7 @@ public class StepDefinitions {
     public void theManagerSubmitsTheProductDetails() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        request.header("Authorization", "Bearer "+ token);
+        request.header("Authorization", "Bearer " + token);
         requestBody.put("productName", "Samsung Galaxy");
         requestBody.put("description", "Electronics");
         requestBody.put("price", "1000");
@@ -381,13 +392,13 @@ public class StepDefinitions {
     public void theUserSubmitsTheUpdatedProductDetails() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        request.header("Authorization", "Bearer "+ JWTTestKeyManager());
+        request.header("Authorization", "Bearer " + JWTTestKeyManager());
         requestBody.put("productName", "Levis Jeans");
         requestBody.put("description", "34w 32h Levis Jeans");
         requestBody.put("category", "Clothing");
         requestBody.put("price", "120");
         requestBody.put("quantity", "10");
-        requestBody.put("storeSection",  "E40");
+        requestBody.put("storeSection", "E40");
         requestBody.put("image", "image.png");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/auth/products/2");
@@ -403,7 +414,7 @@ public class StepDefinitions {
     public void theUserSendsARequestToDeleteTheProduct() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ JWTTestKeyManager());
+        request.header("Authorization", "Bearer " + JWTTestKeyManager());
         response = request.delete(BASE_URL + port + "/api/auth/products/6");
     }
 
@@ -411,7 +422,5 @@ public class StepDefinitions {
     public void theProductShouldBeDeletedSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-
-
-
 }
+
