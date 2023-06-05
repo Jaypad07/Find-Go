@@ -1,5 +1,6 @@
 package com.sei.findgo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -17,6 +18,7 @@ public class StoreSection {
     private String sectionName;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "store_id")
     private Store store;
 

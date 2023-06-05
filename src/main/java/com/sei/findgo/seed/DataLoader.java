@@ -55,13 +55,14 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Calling Seed Data");
 
+        // Creating Users
         User user1 = new User("Jeff", "john@example.com", "password1", "User");
         User user2 = new User("Kevin", "emma@example.com", "password2" , "User");
         User user3 = new User("Obinna", "obinna@example.com", "password3" , "User");
         User user4 = new User("Marie", "marie@example.com", "password4" , "Manager");
         User user5 = new User("Jay", "jay@example.com", "password5", "Admin");
 
-
+        //Creating Stores
         Store Target = new Store("Target", "Phoenix", "Department Store", "mapImage");
         Store BestBuy= new Store("Best Buy", "Chicago", "Electronics", "mapImage");
         Store Walmart = new Store("Walmart", "Los Angeles", "Retail Store", "mapImage");
@@ -115,14 +116,14 @@ public class DataLoader implements CommandLineRunner {
 
 
 
-        // Grouping products to a list
+        // Grouping products to a list and adding it to Sections
         List<Product> electronicsSectionB16 = List.of(wirelessHeadphones, digitalCamera, bluetoothSpeaker);
         List<Product> electronicsSectionB17 = List.of(laptop, smartPhone, smartTV);
         List<Product> clothingSectionA19 = List.of(tShirt, jeans);
         List<Product> applianceSectionC12 = List.of(kitchenBlender, coffeeMaker);
         List<Product> homeDecorSectionD10 = List.of(tableLamp, throwPillow);
 
-        //Adding grouped products to store sections
+        //Adding grouped products lists to store sections
         B16.setProductList(electronicsSectionB16);
         B17.setProductList(electronicsSectionB17);
         A19.setProductList(clothingSectionA19);
@@ -148,7 +149,7 @@ public class DataLoader implements CommandLineRunner {
         throwPillow.setStoreSection(D10);
 
 
-        //Adding users to the database
+      //Adding users to the database
       userService.registerUser(user1);
       userService.registerUser(user2);
       userService.registerUser(user3);
@@ -156,6 +157,7 @@ public class DataLoader implements CommandLineRunner {
       userService.registerUser(user5);
 
 
+      //Adding all products to a list
         List<Product> targetProducts = Arrays.asList(
                 laptop,
                 tShirt,
