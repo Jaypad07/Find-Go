@@ -1,9 +1,6 @@
 package com.sei.findgo.service;
 
-import com.sei.findgo.exceptions.InformationExistException;
-import com.sei.findgo.exceptions.InformationNotFoundException;
-import com.sei.findgo.exceptions.NoAuthorizationException;
-import com.sei.findgo.exceptions.ProductNotFoundException;
+import com.sei.findgo.exceptions.*;
 import com.sei.findgo.models.Store;
 import com.sei.findgo.models.StoreSection;
 import com.sei.findgo.models.User;
@@ -84,6 +81,7 @@ public class StoreService {
      * @throws InformationNotFoundException If the store with the specified ID does not exist.
      * @throws NoAuthorizationException     If the user is not authorized to add the store section.
      * @throws InformationExistException    If a store section with the same name already exists.
+     * @throws MissingFieldException        If the store section name is empty.
      */
     public StoreSection addStoreSection(int storeId, StoreSection storeSectionObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
@@ -91,7 +89,7 @@ public class StoreService {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 if (storeSectionObject.getSectionName() == null || storeSectionObject.getSectionName().isEmpty()) {
-                    throw new InformationExistException("The store section name cannot be empty");
+                    throw new MissingFieldException("The store section name cannot be empty");
                 } else {
                     Optional<StoreSection> storeSection = Optional.ofNullable(storeSectionRepository.findStoreSectionBySectionNameIgnoreCase(storeSectionObject.getSectionName()));
                     if (storeSection.isPresent()) {
