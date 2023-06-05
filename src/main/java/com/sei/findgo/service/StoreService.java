@@ -7,6 +7,7 @@ import com.sei.findgo.models.Store;
 import com.sei.findgo.models.StoreSection;
 import com.sei.findgo.models.User;
 import com.sei.findgo.repository.StoreRepository;
+import com.sei.findgo.repository.StoreSectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,16 @@ public class StoreService {
 
     private StoreRepository storeRepository;
 
+    private StoreSectionRepository storeSectionRepository;
+
     @Autowired
-    public StoreService(StoreRepository storeRepository) {
+    public void setStoreRepository(StoreRepository storeRepository) {
         this.storeRepository = storeRepository;
+    }
+
+    @Autowired
+    public void setStoreSectionRepository(StoreSectionRepository storeSectionRepository) {
+        this.storeSectionRepository = storeSectionRepository;
     }
 
     /**
@@ -61,9 +69,10 @@ public class StoreService {
         if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
-                Store existingStore = store.get();
-                existingStore.getStoreSectionsList().add(storeSectionObject);
-                storeRepository.save(existingStore);
+                store.get().getStoreSectionsList().add(storeSectionObject);
+                storeRepository.save(store.get());
+                storeSectionObject.setStore(store.get());
+                storeSectionRepository.save(storeSectionObject);
                 return storeSectionObject;
             } else {
                 throw new InformationNotFoundException("The store you are looking for does not exist");
