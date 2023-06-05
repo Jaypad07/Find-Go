@@ -13,6 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for managing stores and store sections.
+ *
+ * This class provides methods to perform operations on stores and store sections.
+ * It interacts with the {@link StoreRepository} to access and manipulate store data.
+ * The service methods implement various business logic and authorization checks.
+ */
+
 @Service
 public class StoreService {
 
@@ -23,14 +31,31 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
 
-
+    /**
+     * Adds a new store.
+     *
+     * @param storeObject The store object to be added.
+     * @return The added store.
+     * @throws NoAuthorizationException If the user is not authorized to add the store.
+     */
     public Store addStore(Store storeObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin")) {
             return storeRepository.save(storeObject);
-        } else throw new NoAuthorizationException("You are not authorized to perform this action");
+        } else {
+            throw new NoAuthorizationException("You are not authorized to perform this action");
+        }
     }
 
+    /**
+     * Adds a new store section to a store.
+     *
+     * @param storeId The ID of the store to add the section to.
+     * @param storeSectionObject The store section object to be added.
+     * @return The added store section.
+     * @throws InformationNotFoundException If the store with the specified ID does not exist.
+     * @throws NoAuthorizationException     If the user is not authorized to add the store section.
+     */
     public StoreSection addStoreSection(int storeId, StoreSection storeSectionObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
@@ -40,54 +65,115 @@ public class StoreService {
                 existingStore.getStoreSectionsList().add(storeSectionObject);
                 storeRepository.save(existingStore);
                 return storeSectionObject;
-            } else throw new InformationNotFoundException("The store you are looking for does not exist");
-        } else throw new NoAuthorizationException("You are not authorized to perform this action");
+            } else {
+                throw new InformationNotFoundException("The store you are looking for does not exist");
+            }
+        } else {
+            throw new NoAuthorizationException("You are not authorized to perform this action");
+        }
     }
 
+    /**
+     * Updates a store section.
+     *
+     * @param storeId The ID of the store that contains the section.
+     * @param storeSectionId The ID of the store section to update.
+     * @param storeSectionObject The updated store section object.
+     * @return The updated store section.
+     * @throws InformationNotFoundException If the store with the specified ID does not exist.
+     * @throws NoAuthorizationException If the user is not authorized to update the store section.
+     */
     public StoreSection updateStoreSection(int storeId, int storeSectionId, StoreSection storeSectionObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 Store existingStore = store.get();
-               StoreSection updatedSection = existingStore.getStoreSectionsList().get(storeSectionId);
-               updatedSection.setSectionName(storeSectionObject.getSectionName());
-               updatedSection.setProductList(storeSectionObject.getProductList());
-               storeRepository.save(existingStore);
-               return updatedSection;
-            } else throw new InformationNotFoundException("The store you are looking for does not exist");
-        } else throw new NoAuthorizationException("You are not authorized to perform this action");
+                StoreSection updatedSection = existingStore.getStoreSectionsList().get(storeSectionId);
+                updatedSection.setSectionName(storeSectionObject.getSectionName());
+                updatedSection.setProductList(storeSectionObject.getProductList());
+                storeRepository.save(existingStore);
+                return updatedSection;
+            } else {
+                throw new InformationNotFoundException("The store you are looking for does not exist");
+            }
+        } else {
+            throw new NoAuthorizationException("You are not authorized to perform this action");
+        }
     }
 
-
+    /**
+     * Retrieves all stores.
+     *
+     * @return A list of all stores.
+     * @throws InformationNotFoundException If no stores are found.
+     */
     public List<Store> getAllStores() {
         List<Store> storeList = storeRepository.findAll();
         if (storeList.size() == 0) {
             throw new InformationNotFoundException("No stores found");
-        } else return storeList;
+        } else {
+            return storeList;
+        }
     }
 
+    /**
+     * Retrieves a store by its ID.
+     *
+     * @param id The ID of the store to retrieve.
+     * @return The store with the specified ID.
+     * @throws InformationNotFoundException If the store with the specified ID does not exist.
+     */
     public Store findStoreById(int id) {
         Optional<Store> store = storeRepository.findById(id);
         if (store.isPresent()) {
             return store.get();
-        } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else {
+            throw new InformationNotFoundException("The store you are looking for does not exist");
+        }
     }
 
+    /**
+     * Retrieves a store by its name.
+     *
+     * @param name The name of the store to retrieve.
+     * @return The store with the specified name.
+     * @throws InformationNotFoundException If the store with the specified name does not exist.
+     */
     public Store findStoreByName(String name) {
         Optional<Store> store = storeRepository.findByStoreName(name);
         if (store.isPresent()) {
             return store.get();
-        } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else {
+            throw new InformationNotFoundException("The store you are looking for does not exist");
+        }
     }
 
-    public Store findStoreByCity(String City) {
-        Optional<Store> store = storeRepository.findStoreByCity(City);
+    /**
+     * Retrieves a store by its city.
+     *
+     * @param city The city of the store to retrieve.
+     * @return The store with the specified city.
+     * @throws InformationNotFoundException If the store with the specified city does not exist.
+     */
+    public Store findStoreByCity(String city) {
+        Optional<Store> store = storeRepository.findStoreByCity(city);
         if (store.isPresent()) {
             return store.get();
-        } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else {
+            throw new InformationNotFoundException("The store you are looking for does not exist");
+        }
     }
 
+    /**
+     * Updates a store.
+     *
+     * @param storeId The ID of the store to update.
+     * @param storeObject The updated store object.
+     * @return The updated store.
+     * @throws InformationNotFoundException If the store with the specified ID does not exist.
+     * @throws NoAuthorizationException     If the user is not authorized to update the store.
+     */
     public Store updateStore(int storeId, Store storeObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin")) {
@@ -99,10 +185,22 @@ public class StoreService {
                 existingStore.setMap(storeObject.getMap());
                 storeRepository.save(existingStore);
                 return existingStore;
-            } else throw new InformationNotFoundException("The store you are looking for does not exist");
-        } else throw new NoAuthorizationException("You are not authorized to perform this action");
+            } else {
+                throw new InformationNotFoundException("The store you are looking for does not exist");
+            }
+        } else {
+            throw new NoAuthorizationException("You are not authorized to perform this action");
+        }
     }
 
+    /**
+     * Deletes a store.
+     *
+     * @param storeId The ID of the store to delete.
+     * @return The deleted store.
+     * @throws ProductNotFoundException  If the store with the specified ID does not exist.
+     * @throws NoAuthorizationException If the user is not authorized to delete the store.
+     */
     public Store deleteStore(int storeId) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin")) {
@@ -110,7 +208,11 @@ public class StoreService {
             if (store.isPresent()) {
                 storeRepository.deleteById(storeId);
                 return store.get();
-            } else throw new ProductNotFoundException("Store with id " + storeId + " not found.");
-        } else throw new NoAuthorizationException("User not authorized to delete product.");
+            } else {
+                throw new ProductNotFoundException("Store with id " + storeId + " not found.");
+            }
+        } else {
+            throw new NoAuthorizationException("User not authorized to delete product.");
+        }
     }
 }
