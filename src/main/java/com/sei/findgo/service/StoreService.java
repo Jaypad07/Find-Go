@@ -121,17 +121,15 @@ public class StoreService {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
                 Optional<StoreSection> storeSection = storeSectionRepository.findById(storeSectionId);
-                StoreSection updatedSection = storeSection.get();
-                updatedSection.setSectionName(storeSectionObject.getSectionName());
-                updatedSection.setProductList(updatedSection.getProductList());
-                storeSectionRepository.save(updatedSection);
-                return updatedSection;
-            } else {
-                throw new InformationNotFoundException("The store you are looking for does not exist");
-            }
-        } else {
-            throw new NoAuthorizationException("You are not authorized to perform this action");
-        }
+                if (storeSection.isPresent()) {
+                    StoreSection updatedSection = storeSection.get();
+                    updatedSection.setSectionName(storeSectionObject.getSectionName());
+                    updatedSection.setProductList(updatedSection.getProductList());
+                    storeSectionRepository.save(updatedSection);
+                    return updatedSection;
+                } else throw new InformationNotFoundException("The store Section you are looking for does not exist");
+            } else throw new InformationNotFoundException("The store you are looking for does not exist");
+        } else throw new NoAuthorizationException("You are not authorized to perform this action");
     }
 
     /**
