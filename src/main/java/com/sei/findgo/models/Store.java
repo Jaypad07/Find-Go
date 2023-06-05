@@ -33,7 +33,6 @@ public class Store {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
-//    @JsonIgnore //Can remove later? Caused StackOverflow
     private List<StoreSection> storeSectionsList;
 
     public Store() {

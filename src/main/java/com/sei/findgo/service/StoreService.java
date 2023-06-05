@@ -1,5 +1,6 @@
 package com.sei.findgo.service;
 
+import com.sei.findgo.exceptions.InformationExistException;
 import com.sei.findgo.exceptions.InformationNotFoundException;
 import com.sei.findgo.exceptions.NoAuthorizationException;
 import com.sei.findgo.exceptions.ProductNotFoundException;
@@ -82,17 +83,22 @@ public class StoreService {
      * @return The added store section.
      * @throws InformationNotFoundException If the store with the specified ID does not exist.
      * @throws NoAuthorizationException If the user is not authorized to add the store section.
+     * @throws InformationExistException If a store section with the same name already exists.
      */
     public StoreSection addStoreSection(int storeId, StoreSection storeSectionObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
         if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
-                store.get().getStoreSectionsList().add(storeSectionObject);
-                storeRepository.save(store.get());
-                storeSectionObject.setStore(store.get());
-                storeSectionRepository.save(storeSectionObject);
-                return storeSectionObject;
+               Optional<StoreSection> storeSection = Optional.ofNullable(storeSectionRepository.findStoreSectionBySectionNameIgnoreCase(storeSectionObject.getSectionName()));
+               if (storeSection.isPresent()) {
+                   throw new InformationExistException("A store section with the same name already exists");
+               } else {
+                   store.get().getStoreSectionsList().add(storeSectionObject);
+                   storeSectionObject.setStore(store.get());
+                   storeSectionRepository.save(storeSectionObject);
+                   return storeSectionObject;
+               }
             } else {
                 throw new InformationNotFoundException("The store you are looking for does not exist");
             }
@@ -120,7 +126,7 @@ public class StoreService {
                 StoreSection updatedSection = existingStore.getStoreSectionsList().get(storeSectionId);
                 updatedSection.setSectionName(storeSectionObject.getSectionName());
                 updatedSection.setProductList(storeSectionObject.getProductList());
-                storeRepository.save(existingStore);
+//                storeRepository.save(existingStore);
                 storeSectionRepository.save(storeSectionObject);
                 return updatedSection;
             } else {
