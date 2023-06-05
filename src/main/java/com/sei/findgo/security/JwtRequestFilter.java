@@ -16,6 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/**
+ * Filter class for JWT authentication.
+ *
+ * This class extends the {@link OncePerRequestFilter} to provide JWT authentication functionality.
+ * It intercepts incoming requests and validates the JWT token.
+ * If the token is valid, it sets the user authentication in the security context for further processing.
+ * The filter interacts with the {@link MyUserDetailsService} and {@link JWTUtils} for user details and JWT operations.
+ */
+
+
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -25,18 +35,41 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private MyUserDetailsService myUserDetailsService;
 
     private JWTUtils jwtUtils;
+
+    /**
+     * Sets the JWTUtils dependency for JWT operations.
+     *
+     * @param jwtUtils the JWTUtils instance to be set
+     */
     @Autowired
     public void setJTWUtils(JWTUtils jwtUtils){ this.jwtUtils = jwtUtils;}
 
 
+    /**
+     * method takes a request, gets specific header by key "Authorization"
+     * if the String has length/not null and starts with correct "Bearer"
+     * returns substring that is only key and has Bearer removed.
+     * returns String token key
+     * @param request the HTTP request
+     * @return the JWT token extracted from the request, or null if not found
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (StringUtils.hasLength("headerAuth") && headerAuth.startsWith("Bearer")) {
-            return headerAuth.substring(7); //remove bearer prefix from token
+            return headerAuth.substring(7);
         }
         return null;
     }
 
+    /**
+     * Performs the filter's internal processing.
+     *
+     * @param request the incoming HTTP servlet request
+     * @param response the HTTP servlet response
+     * @param filterChain the filter chain for further processing
+     * @throws ServletException if any servlet-related errors occur
+     * @throws IOException if any I/O errors occur
+     */
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
