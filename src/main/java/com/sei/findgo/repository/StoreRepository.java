@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Integer> {
-    Optional<Store> findByStoreName(String storeName);
+    Optional<Store> findByStoreNameIgnoreCase(String storeName);
 
-    Optional<Store> findStoreByCity(String city);
+    Optional<Store> findStoreByCityIgnoreCase(String city);
 }

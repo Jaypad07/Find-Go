@@ -141,7 +141,7 @@ public class StoreService {
      * @throws InformationNotFoundException If the store with the specified name does not exist.
      */
     public Store findStoreByName(String name) {
-        Optional<Store> store = storeRepository.findByStoreName(name);
+        Optional<Store> store = storeRepository.findByStoreNameIgnoreCase(name);
         if (store.isPresent()) {
             return store.get();
         } else {
@@ -157,7 +157,7 @@ public class StoreService {
      * @throws InformationNotFoundException If the store with the specified city does not exist.
      */
     public Store findStoreByCity(String city) {
-        Optional<Store> store = storeRepository.findStoreByCity(city);
+        Optional<Store> store = storeRepository.findStoreByCityIgnoreCase(city);
         if (store.isPresent()) {
             return store.get();
         } else {
