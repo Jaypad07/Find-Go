@@ -120,12 +120,11 @@ public class StoreService {
         if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
             Optional<Store> store = storeRepository.findById(storeId);
             if (store.isPresent()) {
-                Store existingStore = store.get();
-                StoreSection updatedSection = existingStore.getStoreSectionsList().get(storeSectionId);
+                Optional<StoreSection> storeSection = storeSectionRepository.findById(storeSectionId);
+                StoreSection updatedSection = storeSection.get();
                 updatedSection.setSectionName(storeSectionObject.getSectionName());
-                updatedSection.setProductList(storeSectionObject.getProductList());
-//                storeRepository.save(existingStore);
-                storeSectionRepository.save(storeSectionObject);
+                updatedSection.setProductList(updatedSection.getProductList());
+                storeSectionRepository.save(updatedSection);
                 return updatedSection;
             } else {
                 throw new InformationNotFoundException("The store you are looking for does not exist");
