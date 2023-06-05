@@ -105,8 +105,8 @@ public class StoreController {
     /**
      * Updates a store with the specified ID.
      *
-     * @param storeId      The ID of the store to be updated.
-     * @param storeObject  The updated store object.
+     * @param storeId The ID of the store to be updated.
+     * @param storeObject The updated store object.
      * @return The updated store.
      */
     @PutMapping(path = "auth/stores/{storeId}")
