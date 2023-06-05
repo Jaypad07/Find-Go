@@ -56,13 +56,32 @@ public class StoreService {
     }
 
     /**
+     * Retrieves all store sections.
+     *
+     * This method retrieves all store sections from the database.
+     *
+     * @return a list of store sections
+     * @throws InformationNotFoundException if no store sections exist
+     * @throws NoAuthorizationException if the user is not authorized to perform this action
+     */
+    public List<StoreSection> getAllStoreSections() {
+        Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
+        if (user.isPresent() && user.get().getRole().equals("Admin") || user.isPresent() && user.get().getRole().equals("Manager")) {
+            List<StoreSection> storeSectionList = storeSectionRepository.findAll();
+            if (storeSectionList.size() > 0) {
+                return storeSectionList;
+            } else throw new InformationNotFoundException("No store sections exist");
+        }else throw new NoAuthorizationException("You are not authorized to perform this action");
+    }
+
+    /**
      * Adds a new store section to a store.
      *
      * @param storeId The ID of the store to add the section to.
      * @param storeSectionObject The store section object to be added.
      * @return The added store section.
      * @throws InformationNotFoundException If the store with the specified ID does not exist.
-     * @throws NoAuthorizationException     If the user is not authorized to add the store section.
+     * @throws NoAuthorizationException If the user is not authorized to add the store section.
      */
     public StoreSection addStoreSection(int storeId, StoreSection storeSectionObject) {
         Optional<User> user = Optional.ofNullable(UserService.getCurrentLoggedInUser());
@@ -102,6 +121,7 @@ public class StoreService {
                 updatedSection.setSectionName(storeSectionObject.getSectionName());
                 updatedSection.setProductList(storeSectionObject.getProductList());
                 storeRepository.save(existingStore);
+                storeSectionRepository.save(storeSectionObject);
                 return updatedSection;
             } else {
                 throw new InformationNotFoundException("The store you are looking for does not exist");

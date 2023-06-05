@@ -36,6 +36,19 @@ public class StoreController {
     }
 
     /**
+     * Retrieves all store sections.
+     *
+     * This method handles the HTTP GET request to retrieve all store sections.
+     * It delegates the retrieval operation to the store service.
+     *
+     * @return a list of store sections
+     */
+    @GetMapping(path = "/auth/storeSections")
+    public List<StoreSection> getAllStoreSections() {
+        return storeService.getAllStoreSections();
+    }
+
+    /**
      * Adds a new store section to the specified store.
      *
      * @param storeId The ID of the store.
