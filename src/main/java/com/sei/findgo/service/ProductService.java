@@ -46,6 +46,9 @@ public class ProductService {
      */
     public Product addProduct(Product productObject) {
         if (UserService.getCurrentLoggedInUser().getRole().equals("Manager") || UserService.getCurrentLoggedInUser().getRole().equals("Admin")) {
+           if (productObject.getProductName() == null || productObject.getProductName().equals("")) {
+               throw new IllegalArgumentException("Product name cannot be empty.");
+           }
             return productRepository.save(productObject);
         } else {
             throw new NoAuthorizationException("User not authorized to add product.");
