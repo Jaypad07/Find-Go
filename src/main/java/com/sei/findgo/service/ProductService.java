@@ -1,8 +1,6 @@
 package com.sei.findgo.service;
 
-import com.sei.findgo.exceptions.InformationNotFoundException;
-import com.sei.findgo.exceptions.NoAuthorizationException;
-import com.sei.findgo.exceptions.ProductNotFoundException;
+import com.sei.findgo.exceptions.*;
 import com.sei.findgo.models.Product;
 import com.sei.findgo.models.User;
 import com.sei.findgo.repository.ProductRepository;
@@ -47,12 +45,14 @@ public class ProductService {
     public Product addProduct(Product productObject) {
         if (UserService.getCurrentLoggedInUser().getRole().equals("Manager") || UserService.getCurrentLoggedInUser().getRole().equals("Admin")) {
            if (productObject.getProductName() == null || productObject.getProductName().equals("")) {
-               throw new IllegalArgumentException("Product name cannot be empty.");
+               throw new MissingFieldException("Product name cannot be empty.");
+           }else {
+               Optional<Product> product = productRepository.findByProductNameIgnoreCase(productObject.getProductName());
+               if (product.isPresent()) {
+                   throw new InformationExistException("Product with name " + productObject.getProductName() + " already exists.");
+               }else return productRepository.save(productObject);
            }
-            return productRepository.save(productObject);
-        } else {
-            throw new NoAuthorizationException("User not authorized to add product.");
-        }
+        } else throw new NoAuthorizationException("User not authorized to add product.");
     }
 
     /**
