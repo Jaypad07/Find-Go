@@ -57,7 +57,7 @@ public class UserService {
      * @throws InformationExistException If a user with the same email address already exists.
      */
     public User registerUser(User userObject) {
-        if (!userRepository.existsByEmail(userObject.getEmail())) {
+        if (!userRepository.existsByEmailIgnoreCase(userObject.getEmail())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
             if (userObject.getRole() == null) {
                 userObject.setRole("User");
