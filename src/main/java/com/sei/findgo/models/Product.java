@@ -25,6 +25,9 @@ public class Product {
     private double price;
 
     @Column
+    private String productImg;
+
+    @Column
     private int quantity;
 
     @ManyToOne
@@ -35,11 +38,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, String description, String category, double price, int quantity) {
+    public Product(String productName, String description, String category, double price, String productImg, int quantity) {
         this.productName = productName;
         this.description = description;
         this.category = category;
         this.price = price;
+        this.productImg = productImg;
         this.quantity = quantity;
     }
 
@@ -83,6 +87,14 @@ public class Product {
         this.price = price;
     }
 
+    public String getProductImg() {
+        return productImg;
+    }
+
+    public void setProductImg(String productImg) {
+        this.productImg = productImg;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -101,12 +113,13 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Products{" +
+        return "Product{" +
                 "id=" + id +
                 ", productName='" + productName + '\'' +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
                 ", price=" + price +
+                ", productImg='" + productImg + '\'' +
                 ", quantity=" + quantity +
                 ", storeSection=" + storeSection +
                 '}';

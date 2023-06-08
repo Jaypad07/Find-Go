@@ -101,18 +101,18 @@ public class DataLoader implements CommandLineRunner {
 
 
         // Creating products
-        Product laptop = new Product("Laptop", "High-performance laptop with Intel Core i7 processor.", "Electronics", 1299.89, 10);
-        Product tShirt = new Product("T-Shirt", "Cotton t-shirt with a printed logo.", "Clothing", 21.22, 50);
-        Product smartPhone = new Product("Smartphone", "Latest smartphone with a high-resolution display.", "Electronics", 867.47, 20);
-        Product jeans = new Product("Jeans", "Men's blue jeans.", "Clothing", 49.99, 30);
-        Product smartTV = new Product("Smart TV", "Ultra HD smart TV with built-in streaming apps.", "Electronics", 997.97, 5);
-        Product wirelessHeadphones = new Product("Wireless Headphones", "Bluetooth wireless headphones with noise cancellation.", "Electronics", 149.67, 15);
-        Product digitalCamera = new Product("Digital Camera", "High-resolution digital camera with various shooting modes.", "Electronics", 432.23, 8);
-        Product bluetoothSpeaker = new Product("Bluetooth Speaker", "Portable Bluetooth speaker with excellent sound quality.", "Electronics", 85.49, 20);
-        Product kitchenBlender = new Product("Kitchen Blender", "Powerful blender for making smoothies and soups.", "Appliances", 56.00, 10);
-        Product coffeeMaker = new Product("Coffee Maker", "Programmable coffee maker with built-in grinder.", "Appliances", 70.32, 12);
-        Product tableLamp = new Product("Table Lamp", "Modern table lamp with adjustable brightness.", "Home Decor", 50.00, 15);
-        Product throwPillow = new Product("Throw Pillow", "Soft and cozy throw pillow for your living room.", "Home Decor", 25.22, 20);
+        Product laptop = new Product("Laptop", "High-performance laptop with Intel Core i7 processor.", "Electronics", 1299.89, "img", 10);
+        Product tShirt = new Product("T-Shirt", "Cotton t-shirt with a printed logo.", "Clothing", 21.22, "img", 50);
+        Product smartPhone = new Product("Smartphone", "Latest smartphone with a high-resolution display.", "Electronics", 867.47, "img",  20);
+        Product jeans = new Product("Jeans", "Men's blue jeans.", "Clothing", 49.99, "img",  30);
+        Product smartTV = new Product("Smart TV", "Ultra HD smart TV with built-in streaming apps.", "Electronics", 997.97, "img",  5);
+        Product wirelessHeadphones = new Product("Wireless Headphones", "Bluetooth wireless headphones with noise cancellation.", "Electronics", 149.67, "img",  15);
+        Product digitalCamera = new Product("Digital Camera", "High-resolution digital camera with various shooting modes.", "Electronics", 432.23, "img",  8);
+        Product bluetoothSpeaker = new Product("Bluetooth Speaker", "Portable Bluetooth speaker with excellent sound quality.", "Electronics", 85.49, "img",  20);
+        Product kitchenBlender = new Product("Kitchen Blender", "Powerful blender for making smoothies and soups.", "Appliances", 56.00, "img",  10);
+        Product coffeeMaker = new Product("Coffee Maker", "Programmable coffee maker with built-in grinder.", "Appliances", 70.32, "img",  12);
+        Product tableLamp = new Product("Table Lamp", "Modern table lamp with adjustable brightness.", "Home Decor", 50.00, "img",  15);
+        Product throwPillow = new Product("Throw Pillow", "Soft and cozy throw pillow for your living room.", "Home Decor", 25.22, "img",  20);
 
 
 

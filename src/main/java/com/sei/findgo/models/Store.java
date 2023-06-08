@@ -1,6 +1,6 @@
 package com.sei.findgo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -27,7 +27,7 @@ public class Store {
     @Column
     private String map;
 
-    @JsonIgnore
+    @JsonIgnoreProperties //Changed this
     @ManyToMany(mappedBy = "storeList")
     private List<User> userList;
 
