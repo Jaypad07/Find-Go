@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface StoreRepository extends JpaRepository<Store, Integer> {
     Optional<Store> findByStoreNameIgnoreCase(String storeName);
 
-    Optional<Store> findStoreByCityIgnoreCase(String city);
+    Optional<Store> findStoreByAddressContainsIgnoreCase(String city);
 }

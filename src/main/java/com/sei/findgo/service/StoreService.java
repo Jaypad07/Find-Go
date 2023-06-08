@@ -187,7 +187,7 @@ public class StoreService {
      * @throws InformationNotFoundException If the store with the specified city does not exist.
      */
     public Store findStoreByCity(String city) {
-        Optional<Store> store = storeRepository.findStoreByCityIgnoreCase(city);
+        Optional<Store> store = storeRepository.findStoreByAddressContainsIgnoreCase(city);
         if (store.isPresent()) {
             return store.get();
         } else {
@@ -211,7 +211,9 @@ public class StoreService {
             if (store.isPresent()) {
                 Store existingStore = store.get();
                 existingStore.setStoreName(storeObject.getStoreName());
-                existingStore.setCity(storeObject.getCity());
+                existingStore.setAddress(storeObject.getAddress());
+                existingStore.setDescription(storeObject.getDescription());
+                existingStore.setFloorPlan(storeObject.getFloorPlan());
                 existingStore.setMap(storeObject.getMap());
                 storeRepository.save(existingStore);
                 return existingStore;

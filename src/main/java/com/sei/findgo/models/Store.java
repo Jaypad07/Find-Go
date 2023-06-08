@@ -19,10 +19,13 @@ public class Store {
     private String storeName;
 
     @Column
+    private String address;
+
+    @Column
     private String description;
 
     @Column
-    private String city;
+    private String floorPlan;
 
     @Column
     private String map;
@@ -38,10 +41,11 @@ public class Store {
     public Store() {
     }
 
-    public Store(String storeName, String city, String description, String map) {
+    public Store(String storeName, String address, String description, String floorPlan, String map) {
         this.storeName = storeName;
+        this.address = address;
         this.description = description;
-        this.city = city;
+        this.floorPlan = floorPlan;
         this.map = map;
     }
 
@@ -61,20 +65,12 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public String getCity() {
-        return city;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCity(String location) {
-        this.city = location;
-    }
-
-    public String getMap() {
-        return map;
-    }
-
-    public void setMap(String map) {
-        this.map = map;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
@@ -83,6 +79,22 @@ public class Store {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFloorPlan() {
+        return floorPlan;
+    }
+
+    public void setFloorPlan(String floorPlan) {
+        this.floorPlan = floorPlan;
+    }
+
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
     }
 
     public List<User> getUserList() {
@@ -106,8 +118,9 @@ public class Store {
         return "Store{" +
                 "id=" + id +
                 ", storeName='" + storeName + '\'' +
+                ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
-                ", city='" + city + '\'' +
+                ", floorPlan='" + floorPlan + '\'' +
                 ", map='" + map + '\'' +
                 ", userList=" + userList +
                 ", storeSectionsList=" + storeSectionsList +
