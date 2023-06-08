@@ -214,7 +214,7 @@ public class StoreService {
                 existingStore.setAddress(storeObject.getAddress());
                 existingStore.setDescription(storeObject.getDescription());
                 existingStore.setFloorPlan(storeObject.getFloorPlan());
-                existingStore.setMap(storeObject.getMap());
+                existingStore.setStoreImg(storeObject.getStoreImg());
                 storeRepository.save(existingStore);
                 return existingStore;
             } else {

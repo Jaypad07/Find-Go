@@ -28,7 +28,7 @@ public class Store {
     private String floorPlan;
 
     @Column
-    private String map;
+    private String storeImg;
 
     @JsonIgnoreProperties //Changed this
     @ManyToMany(mappedBy = "storeList")
@@ -41,12 +41,12 @@ public class Store {
     public Store() {
     }
 
-    public Store(String storeName, String address, String description, String floorPlan, String map) {
+    public Store(String storeName, String address, String description, String floorPlan, String storeImg) {
         this.storeName = storeName;
         this.address = address;
         this.description = description;
         this.floorPlan = floorPlan;
-        this.map = map;
+        this.storeImg = storeImg;
     }
 
     public int getId() {
@@ -89,12 +89,12 @@ public class Store {
         this.floorPlan = floorPlan;
     }
 
-    public String getMap() {
-        return map;
+    public String getStoreImg() {
+        return storeImg;
     }
 
-    public void setMap(String map) {
-        this.map = map;
+    public void setStoreImg(String storeImg) {
+        this.storeImg = storeImg;
     }
 
     public List<User> getUserList() {
@@ -121,7 +121,7 @@ public class Store {
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
                 ", floorPlan='" + floorPlan + '\'' +
-                ", map='" + map + '\'' +
+                ", storeImg='" + storeImg + '\'' +
                 ", userList=" + userList +
                 ", storeSectionsList=" + storeSectionsList +
                 '}';
