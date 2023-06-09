@@ -4,6 +4,7 @@
 * [Features](#features)
 * [StoreLocator](#storeLocator)
 * [Technologies](#technologies)
+* [ERD](#erd)
 * [Installation](#installation)
 * [UserStories](#userstories)
 * [Acknowledgements](#acknowledgements)
@@ -51,6 +52,10 @@ Find & Go is designed to help you get in and out of stores as quickly as possibl
 - **Google Chrome**: The browser used for accessing the H2 database engine.
 - **[dbdiagram ERD Tool](https://dbdiagram.io/d/64777d42722eb7749428ec9f)**: Used to create the entity relationship diagram (ERD) during the planning process.
 - **[Markdown Table Generator](https://www.tablesgenerator.com/markdown_tables)**: Used to document the REST API endpoints.
+
+
+## ERD
+![ERD](https://i.imgur.com/3yRm76Y.png)
 
 
 ## Installation
