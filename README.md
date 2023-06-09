@@ -2,10 +2,10 @@
 # Table of Contents
 * [Find & GO](#description)
 * [Features](#features)
-* [StoreLocator](#storeLocator)
 * [Technologies](#technologies)
 * [ERD](#erd)
 * [Installation](#installation)
+* [Diagram](#diagram)
 * [UserStories](#userstories)
 * [Acknowledgements](#acknowledgements)
 * [Contributing](#contributing)
@@ -81,6 +81,8 @@ This command will compile the project's source code and generate the necessary b
 ng serve
 This command will start the application on a local development server. Open your web browser and visit http://localhost:4200 to view the running application.
 
+## Diagram
+![DiamGram](https://github.com/Jaypad07/Find-Go-SpringBootAPI/blob/main/Diagram%20SpringBoot.png)
 
 ## UserStories
 
