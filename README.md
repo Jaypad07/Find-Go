@@ -10,8 +10,6 @@
 * [Acknowledgements](#acknowledgements)
 * [Contributing](#contributing)
 
-
-
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ![FastShoppingCart](https://github.com/Jaypad07/Find-Go-Angular/blob/main/src/assets/Find%26GOTransparent.png)
 
