@@ -11,7 +11,7 @@
 * [Contributing](#contributing)
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-![FastShoppingCart](https://github.com/Jaypad07/Find-Go-Angular/blob/main/src/assets/Find%26GOTransparent.png)
+![ProjectsKanBanBoard](https://www.linkedin.com/in/jaypad07/)
 
 # Find&GO
 The Find&GO project is a web application designed to help users quickly locate specific items when they are in a hurry. It aims to provide a seamless experience for finding items efficiently and minimizing the time spent in the shopping process. The application is primarily targeted towards individuals who lead busy lives and value time-saving solutions. In addition, the application also provides users with accurate and up-to-date stock information for popular and trending items that may be of interest to their children. This feature ensures that users stay informed about the availability of sought-after products, allowing for informed purchasing decisions.
