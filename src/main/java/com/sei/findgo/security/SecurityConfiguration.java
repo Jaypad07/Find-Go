@@ -76,7 +76,8 @@ public class SecurityConfiguration {
                 .antMatchers(
                         HttpMethod.POST,
                         "/api/users/register",
-                        "/api/users/login"
+                        "/api/users/login",
+                        "/v3/api-docs"
                 ).permitAll()
                 .antMatchers(
                         HttpMethod.GET,
@@ -86,7 +87,11 @@ public class SecurityConfiguration {
                         "/api/stores",
                         "/api/stores/storeId/{storeId}",
                         "/api/stores/search/{storeName}",
-                        "/api/stores/city/{location}"
+                        "/api/stores/city/{location}",
+                        "/v3/api-docs",
+                        "/swagger-resources/**",
+                        "/swagger-ui/**",
+                        "/webjars/**"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
