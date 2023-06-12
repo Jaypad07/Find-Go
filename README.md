@@ -59,8 +59,6 @@ Find & Go is designed to help you get in and out of stores as quickly as possibl
 ## API
 ![API](https://i.imgur.com/dfMujvN.png)
 
-http://localhost:8080/swagger-ui/index.html#/
-
 
 ## Installation
 
