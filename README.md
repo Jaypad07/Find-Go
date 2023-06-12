@@ -4,6 +4,7 @@
 * [Features](#features)
 * [Technologies](#technologies)
 * [ERD](#erd)
+* [API](#Documentation)
 * [Installation](#installation)
 * [Diagram](#diagram)
 * [UserStories](#userstories)
@@ -54,6 +55,10 @@ Find & Go is designed to help you get in and out of stores as quickly as possibl
 
 ## ERD
 ![ERD](https://i.imgur.com/3yRm76Y.png)
+
+![API](https://i.imgur.com/pFuto16.png)
+
+http://localhost:8080/swagger-ui/index.html#/
 
 
 ## Installation
