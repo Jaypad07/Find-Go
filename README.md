@@ -6,7 +6,7 @@ You may find the Front-End Angular portion of this two part repo at:
 * [Features](#features)
 * [Technologies](#technologies)
 * [ERD](#erd)
-* [API](#documentation)
+* [API Endpoints](#api-endpoints)
 * [Installation](#installation)
 * [Diagram](#diagram)
 * [UserStories](#userstories)
