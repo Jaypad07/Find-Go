@@ -229,6 +229,12 @@ Gold:
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
+	
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
 	</dependencies>
 
 ## Support
