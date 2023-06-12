@@ -56,7 +56,7 @@ Find & Go is designed to help you get in and out of stores as quickly as possibl
 ## ERD
 ![ERD](https://i.imgur.com/3yRm76Y.png)
 
-## API
+## API Endpoints
 ![API](https://i.imgur.com/dfMujvN.png)
 
 
