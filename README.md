@@ -1,3 +1,5 @@
+You may find the Front-End Angular portion of this two part repo at:
+[Find&Go-Part2](https://github.com/Jaypad07/Find-Go-Angular)
 
 # Table of Contents
 * [Find & GO](#description)
